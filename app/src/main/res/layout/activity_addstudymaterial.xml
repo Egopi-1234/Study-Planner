@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Replace with your back icon -->
+            <ImageView
+                android:id="@+id/backIcon"
+                android:layout_width="29dp"
+                android:layout_height="35dp"
+                android:contentDescription="Back"
+                android:src="@drawable/backarrow" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Study material Task Create"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="#CCCCCC" />
+
+        <!-- Upload Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="Upload Materials"
+            android:textColor="#0047FF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Replace with PDF icon -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/pdf_upload_border"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/file"
+                android:contentDescription="PDF Icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose file"
+                android:textColor="#000000"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- Materials Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Materials Name"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/editTextMaterialName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Unit 1 - Physics Notes"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Subject -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/editTextSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="physics"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Due Date -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Due Date"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittextbg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textViewDueDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Apr 30, 2025"
+                android:textColor="#000000" />
+
+            <!-- Replace with your calendar icon -->
+            <ImageView
+                android:id="@+id/iconCalendar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Calendar Icon"
+                android:src="@drawable/calender" />
+        </LinearLayout>
+
+        <!-- Due Time -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Due Time"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/editTextDueTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/edittextbg"
+            android:hint="6.00 PM"
+            android:padding="10dp"
+            android:textColorHint="#000000" />
+
+        <!-- Set Reminder Button -->
+        <Button
+            android:id="@+id/buttonsetreminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="#0047FF"
+            android:text="Set Reminder"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>
