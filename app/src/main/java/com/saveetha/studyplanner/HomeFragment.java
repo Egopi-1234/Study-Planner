@@ -51,14 +51,14 @@ public class HomeFragment extends Fragment {
 
 
 
-        List<TaskModel> taskList = new ArrayList<>();
-        taskList.add(new TaskModel("POM Assignment", "6.00 pm", "Apr 29", "High"));
-        taskList.add(new TaskModel("math Assignment", "7.00 pm", "Apr 29", "Medium"));
-        taskList.add(new TaskModel("Read Physics Assignment", "8.00 pm", "Apr 29", "High"));
-
-        TaskAdapter adapter = new TaskAdapter(requireContext(), taskList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        recyclerView.setAdapter(adapter);
+//        List<TaskModel> taskList = new ArrayList<>();
+//        taskList.add(new TaskModel("POM Assignment", "6.00 pm", "Apr 29", "High"));
+//        taskList.add(new TaskModel("math Assignment", "7.00 pm", "Apr 29", "Medium"));
+//        taskList.add(new TaskModel("Read Physics Assignment", "8.00 pm", "Apr 29", "High"));
+//
+//        TaskAdapter adapter = new TaskAdapter(requireContext(), taskList);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+//        recyclerView.setAdapter(adapter);
         // Inflate the layout for this fragment
         return v;
     }

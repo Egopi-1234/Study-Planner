@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StudyPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".item_upcoming_taskActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginPage"
             android:exported="false" />
         <activity
@@ -51,7 +54,6 @@
         <activity
             android:name=".addstudymaterialActivity"
             android:exported="false" />
-
         <activity
             android:name=".TaskitemActivity"
             android:exported="false" />
