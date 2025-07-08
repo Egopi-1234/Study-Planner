@@ -2,6 +2,7 @@ package com.saveetha.studyplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,7 @@ public class settingspageActivity extends AppCompatActivity {
     private TextView conarrow5;
     private TextView conarrow8;
     private TextView conarrow7;
+    ImageView backarrbt1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,11 @@ public class settingspageActivity extends AppCompatActivity {
         // Click to open Help page
         conarrow7.setOnClickListener(v -> {
             startActivity(new Intent(settingspageActivity.this, HelppageActivity.class));
+        });
+        backarrbt1 = findViewById(R.id.backarrbt1);
+        backarrbt1.setOnClickListener(v -> {
+
+            finish();
         });
     }
 }

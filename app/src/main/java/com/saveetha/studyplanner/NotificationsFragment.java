@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import kotlinx.coroutines.Dispatchers;
-
 public class NotificationsFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -40,7 +38,7 @@ public class NotificationsFragment extends Fragment {
         adapter = new NotificationAdapter(notificationList);
         recyclerView.setAdapter(adapter);
 
-        backarrowbtn = view.findViewById(R.id.backarrowbtn);
+        backarrowbtn = view.findViewById(R.id.backarrbt1);
 
         backarrowbtn.setOnClickListener(v -> {
             requireActivity().onBackPressed();

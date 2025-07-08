@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;  // Correct import for TextView
+import android.widget.TextView;
 
 public class profilepageFragment extends Fragment {
 
@@ -17,7 +18,8 @@ public class profilepageFragment extends Fragment {
     private ImageView conarrow2;
     private ImageView conarrow3;
     private ImageView conarrow4;
-    private TextView editprofile;  // Changed from ImageView to TextView
+    private TextView editprofile;
+    private Button logout_button;
 
     public profilepageFragment() {
         // Required empty public constructor
@@ -30,14 +32,13 @@ public class profilepageFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profilepage, container, false);
 
-        // Initialize ImageViews
+        // Initialize views
         conarrow1 = v.findViewById(R.id.conarrow8);
         conarrow2 = v.findViewById(R.id.conarrow2);
         conarrow3 = v.findViewById(R.id.conarrow3);
         conarrow4 = v.findViewById(R.id.conarrow4);
-
-        // Initialize TextView (was ImageView before)
         editprofile = v.findViewById(R.id.editprofile);
+        logout_button = v.findViewById(R.id.logout_button);  // ✅ Corrected line
 
         // Set click listeners
         conarrow1.setOnClickListener(view -> {
@@ -58,6 +59,11 @@ public class profilepageFragment extends Fragment {
 
         editprofile.setOnClickListener(view -> {
             startActivity(new Intent(requireActivity(), EditprofiledetailspageActivity.class));
+        });
+
+        logout_button.setOnClickListener(view -> {
+            // Replace LoginPage.this with requireActivity()
+            startActivity(new Intent(requireActivity(), LoginPage.class));
         });
 
         return v;

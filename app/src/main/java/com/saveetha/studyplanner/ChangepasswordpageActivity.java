@@ -21,7 +21,7 @@ public class ChangepasswordpageActivity extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancelButton);
 
         saveButton.setOnClickListener(v -> {
-            // Save password logic here (if any), then go back
+
             finish();
         });
 
