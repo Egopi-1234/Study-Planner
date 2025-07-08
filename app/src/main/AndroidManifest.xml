@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StudyPlanner"
         tools:targetApi="31">
         <activity
+            android:name=".notification_itemActivity"
+            android:exported="false" />
+        <activity
             android:name=".item_upcoming_taskActivity"
             android:exported="false" />
         <activity

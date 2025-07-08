@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,16 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     Button addtask;
+    ImageView notificationbtn;
 
     Button viewfulltask;
+
+    RecyclerView taskRecycler;
+    MyTaskAdapter adapter;
+
+    List<Task> list;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,6 +38,20 @@ public class HomeFragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        taskRecycler = v.findViewById(R.id.recyclerView);
+
+
+        list = new ArrayList<>();
+        list.add(new Task("Pom assignment", "High"));
+        list.add(new Task("Pom assignment", "Medium"));
+        list.add(new Task("Pom assignment", "Low"));
+
+        taskRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new MyTaskAdapter(list);
+        taskRecycler.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
 
@@ -49,6 +72,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        notificationbtn = v.findViewById(R.id.notificationbtn);
+
+        notificationbtn.setOnClickListener(v1 -> {
+            getParentFragmentManager().beginTransaction().replace(R.id.frameContainer, new NotificationsFragment()).addToBackStack("").commit();
+        });
 
 
 //        List<TaskModel> taskList = new ArrayList<>();
