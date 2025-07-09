@@ -22,7 +22,6 @@ public class profilepageFragment extends Fragment {
     private Button logout_button;
 
     public profilepageFragment() {
-        // Required empty public constructor
     }
 
     @Override
