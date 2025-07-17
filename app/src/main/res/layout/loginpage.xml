@@ -42,10 +42,11 @@
             android:src="@drawable/email" />
 
         <EditText
+            android:id="@+id/email_edit"
             android:layout_width="220dp"
             android:layout_height="48dp"
             android:layout_marginTop="-10dp"
-            android:text="Enter Your Email ID"
+            android:hint="Enter Your Email ID"
             tools:layout_editor_absoluteX="93dp"
             tools:layout_editor_absoluteY="125dp" />
     </LinearLayout>
@@ -63,10 +64,11 @@
             android:src="@drawable/download__2_" />
 
         <EditText
+            android:id="@+id/password_edit"
             android:layout_width="220dp"
             android:layout_height="48dp"
             android:layout_marginTop="-10dp"
-            android:text="Enter your password"
+            android:hint="Enter your password"
             tools:layout_editor_absoluteX="93dp"
             tools:layout_editor_absoluteY="125dp" />
     </LinearLayout>

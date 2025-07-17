@@ -42,4 +42,15 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
+
+    // Retrofit & Gson
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+// Logging Interceptor
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+// For timeout & HTTP client
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
 }
