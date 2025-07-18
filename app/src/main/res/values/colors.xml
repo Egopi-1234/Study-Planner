@@ -3,4 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="rose">#CB38E2</color>
+    <color name="blue">#0000FF</color>
+    <color name="green">#4CAF50</color>
+    <color name="brown">#A1887F</color>
+    <color name="red">#D32F2F</color>
+    <color name="chip_unselected_color">#E0E0E0</color> <!-- Light gray -->
+    <color name="chip_selected_color">#0047FF</color> <!-- Blue -->
+    <color name="chip_text_selected">#FFFFFF</color> <!-- White text for selected -->
+    <color name="chip_stroke_color">#9E9E9E</color> <!-- Gray border -->
+
 </resources>

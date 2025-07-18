@@ -1,82 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#F4F6F8"
     android:padding="12dp"
-    android:layout_marginBottom="12dp"
-    android:background="@drawable/edittextbg">
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
 
-    <!-- Task Title, Date, and Priority Row -->
+    <!-- Task Name -->
+    <TextView
+        android:id="@+id/task_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#0047FF" />
+
+    <!-- Task Description -->
+    <TextView
+        android:id="@+id/task_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Task Description"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:layout_marginTop="4dp" />
+
+    <!-- Task Date and Time -->
+    <TextView
+        android:id="@+id/task_datetime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date • Time"
+        android:textSize="12sp"
+        android:textColor="#888888"
+        android:layout_marginTop="4dp" />
+
+    <!-- Priority and Status Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:visibility="gone"
+        android:layout_marginTop="6dp">
 
+        <!-- Priority -->
         <TextView
-            android:id="@+id/taskTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Physics Notes Read Unit-1"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <LinearLayout
+            android:id="@+id/task_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:text="Priority"
+            android:textColor="#D32F2F"
+            android:textStyle="bold"
+            android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/taskDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apr 29"
-                android:textColor="#7C6F6F"
-                android:textSize="12sp"
-                android:layout_marginEnd="6dp" />
+        <!-- Status -->
+        <TextView
+            android:id="@+id/task_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="#388E3C"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:layout_gravity="end" />
 
-            <TextView
-                android:id="@+id/taskPriority"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/high"
-                android:paddingHorizontal="6dp"
-                android:paddingVertical="2dp"
-                android:text="High"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp" />
-        </LinearLayout>
     </LinearLayout>
-
-    <!-- Task Description / Subtitle -->
-    <TextView
-        android:id="@+id/taskSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Complete Assignment 2"
-        android:textColor="#7C6F6F"
-        android:textSize="14sp"
-        android:layout_marginTop="2dp" />
-
-    <!-- Task Time -->
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="High" />
-
-    <TextView
-        android:id="@+id/taskTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12:00 PM"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_marginTop="2dp" />
-
 </LinearLayout>

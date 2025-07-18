@@ -1,5 +1,6 @@
 package com.saveetha.studyplanner.api;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -47,6 +48,44 @@ public interface ApiService {
             @Part("confirm_password") RequestBody confirmPassword
     );
 
+    @Multipart
+    @POST("study_planner/view_profile.php")
+    Call<ProfileResponse> viewProfile(
+            @Part("user_id") RequestBody userId
+    );
 
+
+    @Multipart
+    @POST("study_planner/update_profile.php")
+    Call<UpdateProfileResponse> updateProfile(
+            @Part("user_id") RequestBody userId,
+            @Part("name") RequestBody name,
+            @Part("email") RequestBody email,
+            @Part("phone") RequestBody phone,
+            @Part("Dept_info") RequestBody deptInfo,
+            @Part MultipartBody.Part profileImage
+    );
+
+    @Multipart
+    @POST("study_planner/Add_tasks.php")
+    Call<AddTaskResponse> addTask(
+            @Part("user_id") RequestBody userId,
+            @Part("task") RequestBody task,
+            @Part("description") RequestBody description,
+            @Part("date") RequestBody date,
+            @Part("time") RequestBody time,
+            @Part("priority") RequestBody priority
+    );
+
+    @Multipart
+    @POST("study_planner/view_tasks.php/all")
+    Call<TaskResponse> getTasks(
+            @Part("user_id") RequestBody userId
+    );
+//    @FormUrlEncoded
+//    @POST("study_planner/get_user.php")
+//    Call<UpdateProfileResponse> getUserProfile(
+//            @Field("user_id") int userId
+//    );
 
 }

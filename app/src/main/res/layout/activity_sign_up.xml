@@ -30,38 +30,40 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="please Register to Login"
+            android:text="Please register to login"
             android:textColor="#000000"
             android:textSize="16sp" />
 
-        <!-- Username -->
+        <!-- Name -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="145dp"
-            android:text="User Name"
+            android:layout_marginStart="4dp"
+            android:text="Name"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="start" />
 
         <EditText
             android:id="@+id/etUserName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="User Name"
+            android:hint="Name"
             android:background="@drawable/edittextbg"
             android:padding="10dp"
             android:layout_marginBottom="12dp" />
 
         <!-- Email -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="130dp"
+            android:layout_marginStart="4dp"
             android:text="Email Address"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="start" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -75,13 +77,14 @@
 
         <!-- New Password -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="130dp"
+            android:layout_marginStart="4dp"
             android:text="New Password"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="start" />
 
         <EditText
             android:id="@+id/etNewPassword"
@@ -95,19 +98,20 @@
 
         <!-- Confirm Password -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:text="Confirm New password"
+            android:layout_marginStart="4dp"
+            android:text="Confirm New Password"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="start" />
 
         <EditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Confirm New password"
+            android:hint="Confirm New Password"
             android:inputType="textPassword"
             android:background="@drawable/edittextbg"
             android:padding="10dp"
@@ -141,7 +145,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="#8B8686"
-                android:text="CANCEL"
+                android:text="Cancel"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
@@ -163,7 +167,7 @@
                 android:id="@+id/btLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" log-in"
+                android:text=" Log in"
                 android:textSize="16sp"
                 android:textColor="#0000FF"
                 android:textStyle="bold" />

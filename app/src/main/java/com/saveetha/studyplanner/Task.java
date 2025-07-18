@@ -1,19 +1,30 @@
 package com.saveetha.studyplanner;
 
 public class Task {
-    private String title;
+    private int id;
+    private String task;
+    private String description;
+    private String date;
+    private String time;
     private String priority;
+    private String status;
+    private int user_id;
 
-    public Task(String title, String priority) {
-        this.title = title;
-        this.priority = priority;
+
+    public int getId() {
+        return id;
     }
 
-    public String getTitle() {
-        return title;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public String getPriority() {
-        return priority;
-    }
+    // Getters
+    public String getTask() { return task; }
+    public String getDescription() { return description; }
+    public String getDate() { return date; }
+    public String getTime() { return time; }
+    public String getPriority() { return priority; }
+    public String getStatus() { return status; }
 }
+

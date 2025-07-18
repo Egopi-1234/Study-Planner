@@ -44,12 +44,12 @@ public class HomeFragment extends Fragment {
 
 
         list = new ArrayList<>();
-        list.add(new Task("Pom assignment", "High"));
-        list.add(new Task("Pom assignment", "Medium"));
-        list.add(new Task("Pom assignment", "Low"));
+//        list.add(new Task("Pom assignment", "High"));
+//        list.add(new Task("Pom assignment", "Medium"));
+//        list.add(new Task("Pom assignment", "Low"));
 
         taskRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new MyTaskAdapter(list);
+        adapter = new MyTaskAdapter(requireContext(),list);
         taskRecycler.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -100,8 +99,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Apr 29"
-                android:textColor="#7C6F6F" />
+                android:text="Select Date"
+                android:textColor="#7C6F6F"
+                android:clickable="true"
+                android:focusable="true" />
 
             <ImageView
                 android:id="@+id/iconDate"
@@ -115,17 +116,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Due time"
+            android:text="Due Time"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="12.00 PM"
+            android:hint="Select Time"
             android:background="@drawable/edittextbg"
             android:padding="12dp"
             android:textColorHint="#7C6F6F"
+            android:focusable="false"
+            android:clickable="true"
             android:layout_marginBottom="16dp" />
 
         <!-- Priority -->
@@ -150,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="High"
-                android:backgroundTint="#0000FF"
+                android:backgroundTint="@color/blue"
                 android:textColor="#FFFFFF" />
 
             <Button
@@ -159,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Medium"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="@color/green"
                 android:textColor="#FFFFFF"
                 android:layout_marginHorizontal="4dp" />
 
@@ -169,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Low"
-                android:backgroundTint="#A1887F"
+                android:backgroundTint="@color/brown"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

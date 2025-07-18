@@ -1,106 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_tasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Top Bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Header -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:text="My Tasks"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginBottom="16dp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:paddingStart="12dp"
-            android:text="My Tasks"
-            android:textColor="#0047FF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#AAAAAA"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp" />
-
-    <!-- Filter Buttons Row -->
+    <!-- HorizontalScrollView wrapping ChipGroup -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginBottom="12dp">
 
-        <LinearLayout
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_filters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            app:singleSelection="true">
 
-            <Button
-                android:text="All Tasks"
-                android:backgroundTint="#0000FF"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:minHeight="36dp"
-                android:minWidth="80dp"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="8dp"
-                android:layout_marginEnd="18dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_all"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="All"
+                app:chipBackgroundColor="@color/chip_unselected_color"
+                app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="@color/chip_stroke_color"
+                app:checkedIconVisible="false"/>
 
-            <Button
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_pending"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Pending"
-                android:textSize="12sp"
-                android:minHeight="36dp"
-                android:minWidth="80dp"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:chipBackgroundColor="@color/chip_unselected_color"
+                app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="@color/chip_stroke_color"
+                app:checkedIconVisible="false"/>
 
-            <Button
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_completed"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Completed"
-                android:textSize="12sp"
-                android:minHeight="36dp"
-                android:minWidth="80dp"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                app:chipBackgroundColor="@color/chip_unselected_color"
+                app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="@color/chip_stroke_color"
+                app:checkedIconVisible="false"/>
 
-            <Button
-                android:text="priority"
-                android:textSize="12sp"
-                android:minHeight="36dp"
-                android:minWidth="80dp"
-                android:paddingVertical="4dp"
-                android:paddingHorizontal="8dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_priority"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="Priority"
+                app:chipBackgroundColor="@color/chip_unselected_color"
+                app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="@color/chip_stroke_color"
+                app:checkedIconVisible="false"/>
+
+        </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
-    <!-- RecyclerView for Task List -->
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/taskRecyclerView"
+        android:id="@+id/recycler_tasks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:listitem="@layout/item_task"
-        android:layout_marginTop="12dp"/>
+        android:scrollbars="vertical" />
 
 </LinearLayout>
