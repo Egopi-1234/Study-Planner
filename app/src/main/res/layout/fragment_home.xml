@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#E7E3E3"
-            android:text="📅 View Full Task"
+            android:text="View Full Task"
             android:textColor="#141414" />
     </LinearLayout>
 

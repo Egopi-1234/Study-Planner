@@ -55,7 +55,6 @@
             android:id="@+id/editTextTaskName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Block chain"
             android:background="@drawable/edittextbg"
             android:padding="12dp"
             android:textColorHint="#7C6F6F"
@@ -72,7 +71,6 @@
             android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Complete the Assignment 2"
             android:background="@drawable/edittextbg"
             android:padding="12dp"
             android:textColorHint="#7C6F6F"
@@ -99,17 +97,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="Select Date"
                 android:textColor="#7C6F6F"
-                android:clickable="true"
-                android:focusable="true" />
+                android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/iconDate"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:contentDescription="Select Date"
-                android:src="@drawable/calender" />
         </LinearLayout>
 
         <!-- Due Time -->
