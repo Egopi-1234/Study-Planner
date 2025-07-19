@@ -39,14 +39,15 @@ public interface ApiService {
     );
 
 
-    @Multipart
+    @FormUrlEncoded
     @POST("study_planner/Change_password.php")
     Call<LoginResponse> changePassword(
-            @Part("user_id") RequestBody userId,
-            @Part("old_password") RequestBody oldPassword,
-            @Part("new_password") RequestBody newPassword,
-            @Part("confirm_password") RequestBody confirmPassword
+            @Field("user_id") String userId,
+            @Field("old_password") String oldPassword,
+            @Field("new_password") String newPassword,
+            @Field("confirm_password") String confirmPassword
     );
+
 
     @Multipart
     @POST("study_planner/view_profile.php")

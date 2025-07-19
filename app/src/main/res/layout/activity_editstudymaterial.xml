@@ -31,9 +31,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Study material Task Create"
-                android:textSize="26sp"
+                android:text="Edit Study material Task"
+                android:textColor="#0047FF"
+                android:textSize="24sp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/donearr"
+                android:layout_width="44dp"
+                android:layout_height="43dp"
+                android:contentDescription="Save"
+                android:padding="8dp"
+                android:src="@drawable/ticklogo" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -49,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="Upload Materials"
+            android:text="Re-Upload Materials"
             android:textColor="#0047FF"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -168,14 +177,6 @@
             android:textColorHint="#000000" />
 
         <!-- Set Reminder Button -->
-        <Button
-            android:id="@+id/buttonsetreminder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:backgroundTint="#0047FF"
-            android:text="Set Reminder"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+
     </LinearLayout>
 </ScrollView>

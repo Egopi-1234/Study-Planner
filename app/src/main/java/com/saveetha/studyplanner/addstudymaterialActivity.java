@@ -1,6 +1,5 @@
 package com.saveetha.studyplanner;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,7 +21,7 @@ public class addstudymaterialActivity extends AppCompatActivity {
         buttonsetreminder.setOnClickListener(v -> {
             finish(); });
 
-        backIcon = findViewById(R.id.backIcon);
+        backIcon = findViewById(R.id.backstudy);
 
         backIcon.setOnClickListener(v -> {
             finish(); });
