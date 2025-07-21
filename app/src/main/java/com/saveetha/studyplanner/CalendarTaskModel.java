@@ -1,17 +1,31 @@
 package com.saveetha.studyplanner;
 
 public class CalendarTaskModel {
-    private String title;
+    private int id;
+    private String task;
     private String description;
+    private String date;
     private String time;
+    private String priority;
+    private String status;
 
-    public CalendarTaskModel(String title, String description, String time) {
-        this.title = title;
+    public CalendarTaskModel() {}
+
+    public CalendarTaskModel(int id, String task, String description, String date, String time, String priority, String status) {
+        this.id = id;
+        this.task = task;
         this.description = description;
+        this.date = date;
         this.time = time;
+        this.priority = priority;
+        this.status = status;
     }
 
-    public String getTitle() { return title; }
+    public int getId() { return id; }
+    public String getTask() { return task; }
     public String getDescription() { return description; }
+    public String getDate() { return date; }
     public String getTime() { return time; }
+    public String getPriority() { return priority; }
+    public String getStatus() { return status; }
 }

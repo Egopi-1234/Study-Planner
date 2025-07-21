@@ -63,8 +63,8 @@ public interface ApiService {
             @Part("name") RequestBody name,
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
-            @Part("Dept_info") RequestBody deptInfo,
-            @Part MultipartBody.Part profileImage
+            @Part("Dept_info") RequestBody dept,
+            @Part MultipartBody.Part profile_image  // can be null
     );
 
     @Multipart
@@ -83,6 +83,29 @@ public interface ApiService {
     Call<TaskResponse> getTasks(
             @Part("user_id") RequestBody userId
     );
+
+    @FormUrlEncoded
+    @POST("study_planner/view_materials.php")
+    Call<MaterialResponse> getStudyMaterials(@Field("user_id") int userId);
+
+    @Multipart
+    @POST("study_planner/create_material.php")
+    Call<UploadMaterialResponse> uploadMaterial(
+            @Part("name") RequestBody name,
+            @Part("subject") RequestBody subject,
+            @Part("due_date") RequestBody dueDate,
+            @Part("due_time") RequestBody dueTime,
+            @Part("user_id") RequestBody userId,
+            @Part MultipartBody.Part file
+    );
+
+    @Multipart
+    @POST("study_planner/date_tasks_view.php")
+    Call<CalendarTaskResponse> getTasksByDate(
+            @Part("user_id") RequestBody userId,
+            @Part("date") RequestBody date
+    );
+
 //    @FormUrlEncoded
 //    @POST("study_planner/get_user.php")
 //    Call<UpdateProfileResponse> getUserProfile(

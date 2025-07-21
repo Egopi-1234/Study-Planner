@@ -29,7 +29,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<CalendarTaskAdapte
     @Override
     public void onBindViewHolder(@NonNull CalendarTaskAdapter.ViewHolder holder, int position) {
         CalendarTaskModel task = taskList.get(position);
-        holder.taskTitle.setText(task.getTitle());
+        holder.taskTitle.setText(task.getTask());
         holder.taskDescription.setText(task.getDescription());
         holder.taskTime.setText(task.getTime());
     }

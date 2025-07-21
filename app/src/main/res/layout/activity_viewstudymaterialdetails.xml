@@ -19,6 +19,7 @@
             android:layout_marginBottom="16dp">
 
             <ImageView
+                android:id="@+id/back_arrow"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_gravity="center_vertical"
@@ -52,6 +53,7 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/materialNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextbg"
@@ -69,10 +71,11 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/subjectEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextbg"
-            android:text="physics"
+            android:text="Physics"
             android:enabled="false"
             android:textColor="#7B4B4B"
             android:padding="12dp"
@@ -86,10 +89,11 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/dueDateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextbg"
-            android:text="Apr 30,2025"
+            android:text="Apr 30, 2025"
             android:enabled="false"
             android:textColor="#7B4B4B"
             android:padding="12dp"
@@ -103,6 +107,7 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/dueTimeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextbg"
@@ -112,7 +117,7 @@
             android:padding="12dp"
             android:inputType="text" />
 
-        <!-- Material -->
+        <!-- Material File Path -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -120,6 +125,7 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/filePathEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextbg"
@@ -151,7 +157,6 @@
                 android:layout_marginStart="8dp"
                 android:text="Task Completed\nTick here"
                 android:textSize="14sp" />
-
         </LinearLayout>
 
         <!-- Delete Button -->
@@ -179,5 +184,6 @@
                 android:textColor="#000000"
                 android:textSize="16sp" />
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

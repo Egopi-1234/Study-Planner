@@ -1,19 +1,23 @@
-package com.saveetha.studyplanner.models;
+package com.saveetha.studyplanner;
+
+// StudyMaterial.java
 
 public class StudyMaterial {
-    private String title;
-    private String dateTime;
+    private int id;
+    private String name;
+    private String subject;
+    private String due_date;
+    private String due_time;
+    private String file_path;
+    private String created_at;
 
-    public StudyMaterial(String title, String dateTime) {
-        this.title = title;
-        this.dateTime = dateTime;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
+    // Getters
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getSubject() { return subject; }
+    public String getDueDate() { return due_date; }
+    public String getDueTime() { return due_time; }
+    public String getFilePath() { return file_path; }
+    public String getCreatedAt() { return created_at; }
 }
+

@@ -14,6 +14,7 @@ public class EditstudymaterialActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_editstudymaterial);
         EdgeToEdge.enable(this);
 
 

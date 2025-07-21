@@ -103,6 +103,13 @@
                 android:textColor="#7C6F6F"
                 android:textSize="18sp" />
 
+            <ImageView
+                android:id="@+id/iconCalendar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Calendar Icon"
+                android:src="@drawable/calender" />
+
         </LinearLayout>
 
         <!-- Due Time -->

@@ -48,6 +48,7 @@
         <ImageView
             android:id="@+id/imgDownload"
             android:layout_width="32dp"
+            android:visibility="gone"
             android:layout_height="32dp"
             android:src="@drawable/downloadimag"
             android:contentDescription="Download" />

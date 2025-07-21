@@ -1,6 +1,7 @@
-package com.saveetha.studyplanner.adapters;
+package com.saveetha.studyplanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.saveetha.studyplanner.R;
-import com.saveetha.studyplanner.models.StudyMaterial;
 
 import java.util.List;
 
@@ -35,12 +33,24 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
     @Override
     public void onBindViewHolder(@NonNull MaterialViewHolder holder, int position) {
         StudyMaterial material = materialList.get(position);
-        holder.textTitle.setText(material.getTitle());
-        holder.textDateTime.setText(material.getDateTime());
+        holder.textTitle.setText(material.getName() + " - " + material.getSubject());
+        holder.textDateTime.setText(material.getDueDate() + " " + material.getDueTime());
 
+        // Open details screen on click
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ViewstudymaterialdetailsActivity.class);
+            intent.putExtra("id", material.getId());
+            intent.putExtra("name", material.getName());
+            intent.putExtra("subject", material.getSubject());
+            intent.putExtra("due_date", material.getDueDate());
+            intent.putExtra("due_time", material.getDueTime());
+            intent.putExtra("file_path", material.getFilePath());
+            context.startActivity(intent);
+        });
+
+        // TODO: Download logic if needed
         holder.imgDownload.setOnClickListener(v -> {
-            // TODO: Implement download logic (open PDF or trigger download)
-            // You can show a Toast or start a download task here
+            // Handle download logic
         });
     }
 

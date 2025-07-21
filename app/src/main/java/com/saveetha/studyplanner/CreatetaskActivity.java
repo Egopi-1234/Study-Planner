@@ -2,6 +2,7 @@ package com.saveetha.studyplanner;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +20,20 @@ public class CreatetaskActivity extends AppCompatActivity {
 
     EditText editTextTaskName, editTextDescription, editTextTime;
     TextView textViewDate;
+    ImageView iconCalendar;
     Button btnHigh, btnMedium, btnLow, btnSetReminder;
     ImageButton backButton;
     String selectedPriority = "low";
-    int userId = 5; // You can replace this with dynamic value from login/session
+    int userId; // Now dynamic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_task);
+
+        // Fetch logged-in user ID
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("user_id", -1);
 
         // View Bindings
         backButton = findViewById(R.id.backarrbt1);
@@ -39,6 +45,7 @@ public class CreatetaskActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextTime = findViewById(R.id.editTextTime);
         textViewDate = findViewById(R.id.textViewDate);
+        iconCalendar = findViewById(R.id.iconCalendar);
 
         // Priority buttons
         btnHigh.setOnClickListener(v -> selectPriority("high"));
@@ -47,25 +54,29 @@ public class CreatetaskActivity extends AppCompatActivity {
 
         // Pickers
         textViewDate.setOnClickListener(v -> showDatePicker());
+        iconCalendar.setOnClickListener(v -> showDatePicker());
         editTextTime.setOnClickListener(v -> showTimePicker());
 
-        // Back
+        // Back Button
         backButton.setOnClickListener(v -> finish());
 
-        // Submit
+        // Submit Task
         btnSetReminder.setOnClickListener(v -> submitTask());
     }
 
     private void selectPriority(String priority) {
         selectedPriority = priority;
-
         btnHigh.setBackgroundTintList(getColorStateList(R.color.blue));
         btnMedium.setBackgroundTintList(getColorStateList(R.color.green));
         btnLow.setBackgroundTintList(getColorStateList(R.color.brown));
 
-        if (priority.equals("high")) btnHigh.setBackgroundTintList(getColorStateList(R.color.red));
-        else if (priority.equals("medium")) btnMedium.setBackgroundTintList(getColorStateList(R.color.red));
-        else btnLow.setBackgroundTintList(getColorStateList(R.color.red));
+        if (priority.equals("high")) {
+            btnHigh.setBackgroundTintList(getColorStateList(R.color.red));
+        } else if (priority.equals("medium")) {
+            btnMedium.setBackgroundTintList(getColorStateList(R.color.red));
+        } else {
+            btnLow.setBackgroundTintList(getColorStateList(R.color.red));
+        }
     }
 
     private void showDatePicker() {
@@ -92,6 +103,11 @@ public class CreatetaskActivity extends AppCompatActivity {
 
         if (task.isEmpty() || description.isEmpty() || date.isEmpty() || time.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (userId == -1) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
 

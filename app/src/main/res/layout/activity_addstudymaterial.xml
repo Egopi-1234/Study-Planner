@@ -55,7 +55,9 @@
             android:textStyle="bold" />
 
         <!-- Replace with PDF icon -->
+        <!-- Replace with PDF icon -->
         <LinearLayout
+            android:id="@+id/fileChooseIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -163,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:background="@drawable/edittextbg"
-            android:hint="6.00 PM"
+            android:hint="15:00:00"
             android:padding="10dp"
             android:textColorHint="#000000" />
 
