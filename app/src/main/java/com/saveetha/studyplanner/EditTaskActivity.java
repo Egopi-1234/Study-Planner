@@ -34,7 +34,7 @@ public class EditTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edittaskpage); // your layout file name
+        setContentView(R.layout.activity_edittaskpage); // Make sure this layout exists
 
         editTaskName = findViewById(R.id.edit_task_name);
         editTaskDescription = findViewById(R.id.edit_task_description);
@@ -47,10 +47,11 @@ public class EditTaskActivity extends AppCompatActivity {
         submitButton = findViewById(R.id.submit_button);
         calendarIcon = findViewById(R.id.edit_task_calendar);
 
-        // Example: values passed via intent
+        // Receive task data from intent
         taskId = Integer.parseInt(Objects.requireNonNull(getIntent().getStringExtra("id")));
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        userId = sharedPreferences.getInt("user_id",-1);
+        userId = sharedPreferences.getInt("user_id", -1);
+
         editTaskName.setText(getIntent().getStringExtra("task_name"));
         editTaskDescription.setText(getIntent().getStringExtra("description"));
         editTaskDate.setText(getIntent().getStringExtra("date"));
@@ -61,7 +62,6 @@ public class EditTaskActivity extends AppCompatActivity {
 
         calendarIcon.setOnClickListener(v -> openDatePicker());
         editTaskTime.setOnClickListener(v -> openTimePicker());
-
         backArrow.setOnClickListener(v -> finish());
 
         btnHigh.setOnClickListener(v -> {
@@ -81,9 +81,16 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
     private void highlightPriority(String priority) {
-        btnHigh.setAlpha(priority.equals("High") ? 1f : 0.5f);
-        btnMedium.setAlpha(priority.equals("Medium") ? 1f : 0.5f);
-        btnLow.setAlpha(priority.equals("Low") ? 1f : 0.5f);
+        int redColor = getResources().getColor(android.R.color.holo_red_dark);
+        int grayColor = getResources().getColor(android.R.color.darker_gray);
+
+        btnHigh.setBackgroundColor(priority.equals("High") ? redColor : grayColor);
+        btnMedium.setBackgroundColor(priority.equals("Medium") ? redColor : grayColor);
+        btnLow.setBackgroundColor(priority.equals("Low") ? redColor : grayColor);
+
+        btnHigh.setTextColor(priority.equals("High") ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
+        btnMedium.setTextColor(priority.equals("Medium") ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
+        btnLow.setTextColor(priority.equals("Low") ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
     }
 
     private void openDatePicker() {
@@ -145,9 +152,8 @@ public class EditTaskActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(EditTaskActivity.this, "Task updated", Toast.LENGTH_SHORT).show();
 
-                    // Pass back the updated data
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("id",taskId+"");
+                    resultIntent.putExtra("id", taskId + "");
                     resultIntent.putExtra("task_name", name);
                     resultIntent.putExtra("description", description);
                     resultIntent.putExtra("date", date);
@@ -167,5 +173,4 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
     }
-
 }

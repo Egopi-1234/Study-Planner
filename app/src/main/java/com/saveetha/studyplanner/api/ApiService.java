@@ -4,6 +4,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -112,6 +113,17 @@ public interface ApiService {
         @FormUrlEncoded
         @POST("study_planner/edit_tasks.php")
         Call<ApiResponse> updateTask(@FieldMap Map<String, String> map);
+
+    @Multipart
+    @POST("update_material.php")
+    Call<ResponseBody> updateMaterial(
+            @Part("material_id") RequestBody materialId,
+            @Part("material_name") RequestBody materialName,
+            @Part("subject") RequestBody subject,
+            @Part("due_date") RequestBody dueDate,
+            @Part("due_time") RequestBody dueTime,
+            @Part MultipartBody.Part file // optional PDF file
+    );
 
 //    @FormUrlEncoded
 //    @POST("study_planner/get_user.php")

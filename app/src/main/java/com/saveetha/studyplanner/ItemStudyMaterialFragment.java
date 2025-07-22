@@ -1,11 +1,13 @@
 package com.saveetha.studyplanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class ItemStudyMaterialFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private StudyMaterialAdapter adapter;
+    private Button btnAddMaterial;
 
     private Context safeContext;
 
@@ -49,6 +52,11 @@ public class ItemStudyMaterialFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerViewMaterials);
         recyclerView.setLayoutManager(new LinearLayoutManager(safeContext));
+        btnAddMaterial = view.findViewById(R.id.btnAddMaterial);
+
+        btnAddMaterial.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(),addstudymaterialActivity.class));
+        });
 
         fetchStudyMaterials();
 
@@ -95,5 +103,11 @@ public class ItemStudyMaterialFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         safeContext = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchStudyMaterials();
     }
 }
