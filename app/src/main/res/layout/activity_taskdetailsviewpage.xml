@@ -53,7 +53,7 @@
 
         <!-- Task Name -->
         <TextView
-            android:id="@+id/task_name_detail"
+            android:id="@+id/task_datetime_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -62,21 +62,16 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/task_datetime_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Blockchain"
-            android:textColor="#7A6F6F"
-            android:textSize="14sp" />
-
-        <!-- Horizontal Grey Line -->
-        <View
+            android:id="@+id/task_name_detail"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:hint="Blockchain"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
+        <!-- Horizontal Grey Line -->
+
 
         <!-- Description -->
         <TextView
@@ -90,18 +85,14 @@
 
         <TextView
             android:id="@+id/task_description_value"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Complete Assignment 2"
-            android:textSize="14sp"
+            android:hint="Complete Assignment 2"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
             android:layout_marginTop="4dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="#CCCCCC" />
 
         <!-- Date -->
         <TextView
@@ -113,21 +104,18 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
+
         <TextView
             android:id="@+id/task_date_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2026-04-15"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:textColor="#7A6F6F" />
-
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:hint="2026-04-15"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
+
+
 
         <!-- Time -->
         <TextView
@@ -141,20 +129,15 @@
 
         <TextView
             android:id="@+id/task_time_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12:00 PM"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:textColor="#7A6F6F" />
-
-        <!-- Horizontal Grey Line -->
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:hint="12:00 PM"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
+
+
 
         <!-- Priority -->
         <TextView
@@ -165,23 +148,15 @@
             android:text="Priority"
             android:textSize="17sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/task_priority_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Medium"
-            android:textColor="#FFD700"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp" />
-
-        <!-- Horizontal Grey Line -->
-        <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="8dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:hint="Medium"
+            android:textColorHint="#FFD700"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
 
         <!-- Task Completed Checkbox -->
         <LinearLayout

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -22,10 +24,9 @@ public class profilepageFragment extends Fragment {
     public profilepageFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profilepage, container, false);
 
         // Initialize views
@@ -38,29 +39,48 @@ public class profilepageFragment extends Fragment {
         nameLabel = v.findViewById(R.id.name_label);
         emailLabel = v.findViewById(R.id.email_label);
 
-        // Load user data from SharedPreferences (adjust name of prefs and keys accordingly)
-        SharedPreferences prefs = requireActivity().getSharedPreferences("user_prefs", 0);
-        String username = prefs.getString("username", "Username");   // default fallback
-        String email = prefs.getString("email", "user@example.com"); // default fallback
+        // Check if fragment is attached before accessing context
+        if (!isAdded()) {
+            // Fragment not attached, return view without setup to avoid crashes
+            return v;
+        }
+
+        // Safe to get context and activity now
+        final var context = requireContext();
+        final var activity = requireActivity();
+
+        // Load user data from SharedPreferences
+        SharedPreferences prefs = context.getSharedPreferences("user_prefs", 0);
+        String username = prefs.getString("username", "Username");
+        String email = prefs.getString("email", "user@example.com");
 
         // Set user info in TextViews
         nameLabel.setText("Name: " + username);
         emailLabel.setText("Mail ID: " + email);
 
-        // Set click listeners
-        conarrow1.setOnClickListener(view -> startActivity(new Intent(requireActivity(), ChangepasswordpageActivity.class)));
-        conarrow2.setOnClickListener(view -> startActivity(new Intent(requireActivity(), settingspageActivity.class)));
-        conarrow3.setOnClickListener(view -> startActivity(new Intent(requireActivity(), PrivacypolicyPageActivity.class)));
-        conarrow4.setOnClickListener(view -> startActivity(new Intent(requireActivity(), TermsandconditionpageActivity.class)));
-        editprofile.setOnClickListener(view -> startActivity(new Intent(requireActivity(), EditprofiledetailspageActivity.class)));
+        // Set click listeners for arrows and edit profile
+        conarrow1.setOnClickListener(view ->
+                activity.startActivity(new Intent(context, ChangepasswordpageActivity.class)));
+
+        conarrow2.setOnClickListener(view ->
+                activity.startActivity(new Intent(context, settingspageActivity.class)));
+
+        conarrow3.setOnClickListener(view ->
+                activity.startActivity(new Intent(context, PrivacypolicyPageActivity.class)));
+
+        conarrow4.setOnClickListener(view ->
+                activity.startActivity(new Intent(context, TermsandconditionpageActivity.class)));
+
+        editprofile.setOnClickListener(view ->
+                activity.startActivity(new Intent(context, EditprofiledetailspageActivity.class)));
 
         logout_button.setOnClickListener(view -> {
-            // Clear user session if needed, then logout
+            // Clear user session and logout
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
             editor.apply();
-            startActivity(new Intent(requireActivity(), LoginPage.class));
-            requireActivity().finish();
+            activity.startActivity(new Intent(context, LoginPage.class));
+            activity.finish();
         });
 
         return v;

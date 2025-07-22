@@ -1,5 +1,9 @@
 package com.saveetha.studyplanner;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,28 +52,13 @@ public class TasksFragment extends Fragment {
         chipPriority = view.findViewById(R.id.chip_priority);
 
         recyclerTasks.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new MyTaskAdapter(requireContext(),filteredTaskList);
+        adapter = new MyTaskAdapter(requireContext(), filteredTaskList);
         recyclerTasks.setAdapter(adapter);
 
+        // Fetch tasks initially
         fetchTasks();
 
-        chipGroupFilters.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.chip_all) {
-                showAllTasks();
-            } else if (checkedId == R.id.chip_pending) {
-                filterTasksByStatus("Pending");
-            } else if (checkedId == R.id.chip_completed) {
-                filterTasksByStatus("Completed");
-            } else if (checkedId == R.id.chip_priority) {
-                sortTasksByPriority();
-            }
-        });
-
-        // Select "All" chip by default
-        chipAll.setChecked(true);
-        updateChipColors(chipAll.getId());
-
-        // Update chip colors on selection change
+        // Chip selection listener
         chipGroupFilters.setOnCheckedChangeListener((group, checkedId) -> {
             updateChipColors(checkedId);
 
@@ -84,13 +73,17 @@ public class TasksFragment extends Fragment {
             }
         });
 
+        // Set "All" selected by default
+        chipAll.setChecked(true);
+        updateChipColors(chipAll.getId());
+
         return view;
     }
 
     private void updateChipColors(int selectedChipId) {
-        int selectedBg = getResources().getColor(R.color.chip_selected_color);
+        if (!isAdded()) return;
+
         int selectedText = getResources().getColor(R.color.chip_text_selected);
-        int unselectedBg = getResources().getColor(R.color.chip_unselected_color);
         int unselectedText = Color.BLACK;
 
         for (int i = 0; i < chipGroupFilters.getChildCount(); i++) {
@@ -108,25 +101,38 @@ public class TasksFragment extends Fragment {
     private void fetchTasks() {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        RequestBody userIdBody = RequestBody.create(okhttp3.MultipartBody.FORM, "5");
+        Context context = getContext();
+        if (context == null) return;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserSession", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
+
+        RequestBody userIdBody = RequestBody.create(okhttp3.MultipartBody.FORM, String.valueOf(userId));
 
         Call<TaskResponse> call = apiService.getTasks(userIdBody);
         call.enqueue(new Callback<TaskResponse>() {
             @Override
             public void onResponse(Call<TaskResponse> call, Response<TaskResponse> response) {
+                if (!isAdded()) return;
+
                 if (response.isSuccessful() && response.body() != null && response.body().isStatus()) {
                     fullTaskList.clear();
                     fullTaskList.addAll(response.body().getData());
-
                     showAllTasks();
                 } else {
-                    Toast.makeText(getContext(), "No tasks found", Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "No tasks found", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<TaskResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load tasks: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                if (!isAdded()) return;
+
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Failed to load tasks: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -151,7 +157,8 @@ public class TasksFragment extends Fragment {
         filteredTaskList.clear();
         filteredTaskList.addAll(fullTaskList);
 
-        filteredTaskList.sort((task1, task2) -> getPriorityValue(task1.getPriority()) - getPriorityValue(task2.getPriority()));
+        filteredTaskList.sort((task1, task2) ->
+                getPriorityValue(task1.getPriority()) - getPriorityValue(task2.getPriority()));
 
         adapter.notifyDataSetChanged();
     }
@@ -159,10 +166,20 @@ public class TasksFragment extends Fragment {
     private int getPriorityValue(String priority) {
         if (priority == null) return 4;
         switch (priority.toLowerCase()) {
-            case "high": return 1;
-            case "medium": return 2;
-            case "low": return 3;
-            default: return 4;
+            case "high":
+                return 1;
+            case "medium":
+                return 2;
+            case "low":
+                return 3;
+            default:
+                return 4;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchTasks();
     }
 }

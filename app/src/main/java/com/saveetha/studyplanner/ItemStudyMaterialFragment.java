@@ -29,8 +29,16 @@ public class ItemStudyMaterialFragment extends Fragment {
     private RecyclerView recyclerView;
     private StudyMaterialAdapter adapter;
 
+    private Context safeContext;
+
     public ItemStudyMaterialFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        safeContext = context; // Save context for safe usage
     }
 
     @Nullable
@@ -40,7 +48,7 @@ public class ItemStudyMaterialFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_study_material, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewMaterials);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(safeContext));
 
         fetchStudyMaterials();
 
@@ -48,41 +56,44 @@ public class ItemStudyMaterialFragment extends Fragment {
     }
 
     private void fetchStudyMaterials() {
-        Context context = getContext();
-        if (context == null) return; // Don't continue if fragment isn't attached
+        if (safeContext == null || !isAdded()) return;
 
-        SharedPreferences prefs = context.getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        SharedPreferences prefs = safeContext.getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         int userId = prefs.getInt("user_id", -1);
         if (userId == -1) {
-            Toast.makeText(context, "User not logged in", Toast.LENGTH_SHORT).show();
+            Toast.makeText(safeContext, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<MaterialResponse> call = apiService.getStudyMaterials(userId); // Make sure this API is defined
+        Call<MaterialResponse> call = apiService.getStudyMaterials(userId);
 
         call.enqueue(new Callback<MaterialResponse>() {
             @Override
-            public void onResponse(Call<MaterialResponse> call, Response<MaterialResponse> response) {
-                Context context = getContext();
-                if (context == null) return;
+            public void onResponse(@NonNull Call<MaterialResponse> call, @NonNull Response<MaterialResponse> response) {
+                if (!isAdded() || safeContext == null) return;
 
                 if (response.isSuccessful() && response.body() != null) {
                     List<StudyMaterial> materials = response.body().getData();
-                    adapter = new StudyMaterialAdapter(context, materials);
+                    adapter = new StudyMaterialAdapter(safeContext, materials);
                     recyclerView.setAdapter(adapter);
                 } else {
-                    Toast.makeText(context, "No materials found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(safeContext, "No materials found", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<MaterialResponse> call, Throwable t) {
-                Context context = getContext();
-                if (context != null) {
-                    Toast.makeText(context, "Failed to fetch materials: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call<MaterialResponse> call, @NonNull Throwable t) {
+                if (isAdded() && safeContext != null) {
+                    Toast.makeText(safeContext, "Failed to fetch materials: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        safeContext = null;
     }
 }

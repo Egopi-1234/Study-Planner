@@ -1,9 +1,12 @@
 package com.saveetha.studyplanner.api;
 
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -105,6 +108,10 @@ public interface ApiService {
             @Part("user_id") RequestBody userId,
             @Part("date") RequestBody date
     );
+
+        @FormUrlEncoded
+        @POST("study_planner/edit_tasks.php")
+        Call<ApiResponse> updateTask(@FieldMap Map<String, String> map);
 
 //    @FormUrlEncoded
 //    @POST("study_planner/get_user.php")

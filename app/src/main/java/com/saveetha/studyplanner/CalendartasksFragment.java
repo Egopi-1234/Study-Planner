@@ -1,5 +1,6 @@
 package com.saveetha.studyplanner;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +23,6 @@ import com.saveetha.studyplanner.api.ApiService;
 import com.saveetha.studyplanner.api.CalendarTaskResponse;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,10 +46,25 @@ public class CalendartasksFragment extends Fragment {
     private List<CalendarTaskModel> taskList = new ArrayList<>();
     private CalendarTaskAdapter adapter;
 
-    private String selectedApiDate = null; // ⬅️ Store the selected date in yyyy-MM-dd format
+    private String selectedApiDate = null;
+
+    private Context safeContext;
 
     public CalendartasksFragment() {}
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        safeContext = context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        safeContext = null;
+    }
+
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendartasks, container, false);
@@ -68,19 +85,20 @@ public class CalendartasksFragment extends Fragment {
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, month, dayOfMonth);
-            long selectedMillis = calendar.getTimeInMillis();
-            updateDateUI(selectedMillis);
+            updateDateUI(calendar.getTimeInMillis());
         });
 
         fabAddTask.setOnClickListener(v -> {
-            startActivity(new Intent(requireContext(), CreatetaskActivity.class));
+            if (safeContext != null) {
+                startActivity(new Intent(safeContext, CreatetaskActivity.class));
+            }
         });
 
         return view;
     }
 
     private void updateDateUI(long millis) {
-        selectedApiDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(millis)); // ⬅️ Store selected date
+        selectedApiDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(millis));
         String displayDate = new SimpleDateFormat("EEEE, MMMM d", Locale.getDefault()).format(new Date(millis));
 
         selectedDateText.setText(displayDate);
@@ -88,14 +106,16 @@ public class CalendartasksFragment extends Fragment {
     }
 
     private int getLoggedInUserId() {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserSession", getContext().MODE_PRIVATE);
-        return sharedPreferences.getInt("user_id", -1); // -1 if not found
+        if (safeContext == null) return -1;
+
+        SharedPreferences sharedPreferences = safeContext.getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("user_id", -1);
     }
 
     private void fetchTasks(String date) {
         int userId = getLoggedInUserId();
         if (userId == -1) {
-            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+            showToast("User not logged in");
             return;
         }
 
@@ -108,7 +128,9 @@ public class CalendartasksFragment extends Fragment {
 
         call.enqueue(new Callback<CalendarTaskResponse>() {
             @Override
-            public void onResponse(Call<CalendarTaskResponse> call, Response<CalendarTaskResponse> response) {
+            public void onResponse(@NonNull Call<CalendarTaskResponse> call, @NonNull Response<CalendarTaskResponse> response) {
+                if (!isAdded()) return; // Prevent update if fragment not attached
+
                 if (response.isSuccessful() && response.body() != null && response.body().isStatus()) {
                     taskList.clear();
                     taskList.addAll(response.body().getData());
@@ -126,22 +148,29 @@ public class CalendartasksFragment extends Fragment {
                         }
                     }
 
-                    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    showToast(errorMessage);
                 }
             }
 
             @Override
-            public void onFailure(Call<CalendarTaskResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call<CalendarTaskResponse> call, @NonNull Throwable t) {
+                if (!isAdded()) return;
+                showToast("Error: " + t.getMessage());
             }
         });
+    }
+
+    private void showToast(String message) {
+        if (safeContext != null) {
+            Toast.makeText(safeContext, message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         if (selectedApiDate != null) {
-            fetchTasks(selectedApiDate); // ⬅️ Re-fetch tasks for the currently selected date
+            fetchTasks(selectedApiDate);
         }
     }
 }

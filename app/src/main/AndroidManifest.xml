@@ -32,7 +32,7 @@
             android:name=".CreatetaskActivity"
             android:exported="false" />
         <activity
-            android:name=".edittaskpageActivity"
+            android:name=".EditTaskActivity"
             android:exported="false" />
         <activity
             android:name=".TaskdetailsviewpageActivity"

@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <!-- Top App Bar -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <TextView
-            android:layout_width="0dp"
+        <!-- Top App Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Calendar"
-            android:textColor="#0047FF"
-            android:textSize="20sp"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Calendar"
+                android:textColor="#0047FF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Horizontal Gray Line Below Calendar -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="#CCCCCC" />
+
+        <!-- CalendarView -->
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Horizontal Gray Line Below Calendar -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="#CCCCCC" />
+
+        <!-- Selected Date Title -->
+        <TextView
+            android:id="@+id/selectedDateText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:text="Tuesday, April 3"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
+        <!-- RecyclerView expands to bottom -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/taskRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="4dp"
+            android:scrollbars="vertical" />
     </LinearLayout>
-    <!-- Horizontal Gray Line Below Calendar -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="4dp" />
 
-    <!-- CalendarView -->
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!-- Horizontal Gray Line Below Calendar -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#CCCCCC"
-        android:layout_marginTop="4dp" />
-
-
-    <!-- Selected Date Title -->
-    <TextView
-        android:id="@+id/selectedDateText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="12dp"
-        android:text="Tuesday, April 3"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <!-- RecyclerView for Tasks -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/taskRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingHorizontal="8dp"
-        android:paddingTop="4dp"
-        android:scrollbars="vertical" />
-
-    <!-- Floating Action Button -->
+    <!-- Floating Action Button over RecyclerView -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddTask"
         android:layout_width="wrap_content"
@@ -78,8 +83,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:contentDescription="Add Task"
-        app:srcCompat="@drawable/baseline_add_24"
         app:backgroundTint="#0000FF"
-        app:elevation="6dp" />
-
-</LinearLayout>
+        app:elevation="6dp"
+        app:srcCompat="@drawable/baseline_add_24" />
+</FrameLayout>

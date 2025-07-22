@@ -18,7 +18,7 @@
             android:paddingBottom="16dp">
 
             <ImageView
-                android:id="@+id/baarr"
+                android:id="@+id/back_arrow"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:contentDescription="Back"
@@ -35,7 +35,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/donearr"
+                android:id="@+id/submit_button"
                 android:layout_width="44dp"
                 android:layout_height="43dp"
                 android:contentDescription="Save"
@@ -59,20 +59,14 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edit_task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:paddingBottom="8dp"
-            android:text="Blockchain"
-            android:textColor="#8C7B75"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+            android:hint="Blockchain"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
 
         <!-- Task Description / Notes -->
         <TextView
@@ -84,20 +78,14 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/edit_task_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:inputType="textMultiLine"
-            android:paddingBottom="8dp"
-            android:text="Complete Assignment 2"
-            android:textColor="#8C7B75"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+            android:hint="Complete Assignment 2"
+            android:textColorHint="#7B5E5E"
+            android:background="@drawable/edittextbg"
+            android:padding="10dp"
+            android:layout_marginTop="4dp" />
 
         <!-- Due Date -->
         <TextView
@@ -108,19 +96,33 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Apr 29"
-            android:textColor="#8C7B75"
-            android:textSize="16sp" />
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/edittextbg"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/edit_task_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="Select Date"
+                android:textColor="#7C6F6F"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/edit_task_calendar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="Calendar Icon"
+                android:src="@drawable/calender" />
+        </LinearLayout>
 
         <!-- Due Time -->
         <TextView
@@ -131,19 +133,17 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="12.00 PM"
-            android:textColor="#8C7B75"
-            android:textSize="16sp" />
-
-        <View
+        <EditText
+            android:id="@+id/edit_task_time"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />
+            android:layout_height="wrap_content"
+            android:hint="Select Time"
+            android:background="@drawable/edittextbg"
+            android:padding="12dp"
+            android:textColorHint="#7C6F6F"
+            android:focusable="false"
+            android:clickable="true"
+            android:layout_marginBottom="16dp" />
 
         <!-- Priority -->
         <TextView
@@ -155,32 +155,40 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:gravity="center"
+            android:background="@drawable/edittextbg"
+            android:padding="8dp"
+            android:layout_marginBottom="24dp">
 
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/edit_priority_high"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0000FF"
+                android:layout_weight="1"
                 android:text="High"
+                android:backgroundTint="@color/blue"
                 android:textColor="#FFFFFF" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/edit_priority_medium"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:backgroundTint="#228B22"
+                android:layout_weight="1"
                 android:text="Medium"
-                android:textColor="#FFFFFF" />
+                android:backgroundTint="@color/green"
+                android:textColor="#FFFFFF"
+                android:layout_marginHorizontal="4dp" />
 
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/edit_priority_low"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:backgroundTint="#8B7B7B"
+                android:layout_weight="1"
                 android:text="Low"
+                android:backgroundTint="@color/brown"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

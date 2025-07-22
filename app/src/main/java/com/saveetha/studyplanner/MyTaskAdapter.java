@@ -47,7 +47,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
             intent.putExtra("time", task.getTime());
             intent.putExtra("priority", task.getPriority());
             intent.putExtra("status", task.getStatus());
-            intent.putExtra("id", task.getId());
+            intent.putExtra("id", task.getId()+"");
             context.startActivity(intent);
         });
     }
