@@ -1,35 +1,48 @@
 package com.saveetha.studyplanner;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.saveetha.studyplanner.api.ApiClient;
+import com.saveetha.studyplanner.api.ApiService;
+import com.saveetha.studyplanner.api.ProfileResponse;
+
+import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class profilepageFragment extends Fragment {
 
-    private ImageView conarrow1, conarrow2, conarrow3, conarrow4;
+    private ImageView conarrow1, conarrow2, conarrow3, conarrow4, profileImageView;
     private TextView editprofile, nameLabel, emailLabel;
     private Button logout_button;
 
     public profilepageFragment() {}
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profilepage, container, false);
 
-        // Initialize views
         conarrow1 = v.findViewById(R.id.conarrow8);
         conarrow2 = v.findViewById(R.id.conarrow2);
         conarrow3 = v.findViewById(R.id.conarrow3);
@@ -38,27 +51,58 @@ public class profilepageFragment extends Fragment {
         logout_button = v.findViewById(R.id.logout_button);
         nameLabel = v.findViewById(R.id.name_label);
         emailLabel = v.findViewById(R.id.email_label);
+        profileImageView = v.findViewById(R.id.profile_image);
 
-        // Check if fragment is attached before accessing context
-        if (!isAdded()) {
-            // Fragment not attached, return view without setup to avoid crashes
-            return v;
-        }
+        if (!isAdded()) return v;
 
-        // Safe to get context and activity now
         final var context = requireContext();
         final var activity = requireActivity();
 
-        // Load user data from SharedPreferences
-        SharedPreferences prefs = context.getSharedPreferences("user_prefs", 0);
-        String username = prefs.getString("username", "Username");
-        String email = prefs.getString("email", "user@example.com");
+        SharedPreferences prefs = context.getSharedPreferences("UserSession", MODE_PRIVATE);
+        int userIdStr = prefs.getInt("user_id", -1);
 
-        // Set user info in TextViews
-        nameLabel.setText("Name: " + username);
-        emailLabel.setText("Mail ID: " + email);
+        if (userIdStr != -1) {
+            RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userIdStr));
 
-        // Set click listeners for arrows and edit profile
+
+
+            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            Call<ProfileResponse> call = apiService.viewProfile(userIdBody);
+
+            call.enqueue(new Callback<ProfileResponse>() {
+                @Override
+                public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().status) {
+                        ProfileResponse.UserData userData = response.body().data.get(0);
+
+                        String fullName = userData.name;
+                        String email = userData.email;
+                        String profileImage = userData.profile_image;
+                        String imageUrl = ApiClient.getBaseUrl() + profileImage;
+
+                        nameLabel.setText("Name: " + fullName);
+                        emailLabel.setText("Mail ID: " + email);
+
+                        Glide.with(context)
+                                .load(imageUrl)
+                                .placeholder(R.drawable.user_profile)
+                                .error(R.drawable.user_profile)
+                                .circleCrop() // <-- This makes the image circular
+                                .into(profileImageView);
+
+                    } else {
+                        Toast.makeText(context, "Failed to load profile", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                    Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        // Arrows and buttons
         conarrow1.setOnClickListener(view ->
                 activity.startActivity(new Intent(context, ChangepasswordpageActivity.class)));
 
@@ -75,7 +119,6 @@ public class profilepageFragment extends Fragment {
                 activity.startActivity(new Intent(context, EditprofiledetailspageActivity.class)));
 
         logout_button.setOnClickListener(view -> {
-            // Clear user session and logout
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
             editor.apply();

@@ -107,9 +107,11 @@ public class TaskdetailsviewpageActivity extends AppCompatActivity {
         });
 
         deleteTaskButton.setOnClickListener(v -> {
-            Toast.makeText(TaskdetailsviewpageActivity.this, "Delete task clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(TaskdetailsviewpageActivity.this, "Delete task Successfully", Toast.LENGTH_SHORT).show();
         });
 
         backButton.setOnClickListener(v -> finish());
     }
 }
+
+

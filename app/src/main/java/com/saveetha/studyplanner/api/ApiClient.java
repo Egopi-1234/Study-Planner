@@ -1,8 +1,10 @@
 package com.saveetha.studyplanner.api;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,7 +14,7 @@ public class ApiClient {
     static String IMAGE_URL = "https://dnb1vx0g-80.inc1.devtunnels.ms/study_planner/"; // for Android Emulator
     private static Retrofit retrofit;
 
-    public  static String getBaseUrl(){
+    public static String getBaseUrl() {
         return IMAGE_URL;
     }
 
@@ -22,10 +24,12 @@ public class ApiClient {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
                     .addInterceptor(logging)
+                    // Force HTTP 1.1 to avoid StreamResetException errors
+                    .protocols(Collections.singletonList(Protocol.HTTP_1_1))
                     .build();
 
             retrofit = new Retrofit.Builder()
@@ -36,6 +40,4 @@ public class ApiClient {
         }
         return retrofit;
     }
-
-
 }

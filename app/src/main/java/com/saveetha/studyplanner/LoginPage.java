@@ -67,6 +67,8 @@ public class LoginPage extends AppCompatActivity {
                         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("user_id", userId);
+                        editor.putString("email", response.body().getData().getEmail());
+                        editor.putString("name", response.body().getData().getUsername());
                         editor.apply();
 
                         Toast.makeText(LoginPage.this, "Welcome " + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();

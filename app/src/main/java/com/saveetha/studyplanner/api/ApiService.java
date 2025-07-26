@@ -114,16 +114,32 @@ public interface ApiService {
         @POST("study_planner/edit_tasks.php")
         Call<ApiResponse> updateTask(@FieldMap Map<String, String> map);
 
+
     @Multipart
-    @POST("update_material.php")
-    Call<ResponseBody> updateMaterial(
+    @POST("study_planner/edit_material.php")
+    Call<EditMaterialResponse> updateMaterial(
             @Part("material_id") RequestBody materialId,
-            @Part("material_name") RequestBody materialName,
+            @Part("user_id") RequestBody userId,
+            @Part("name") RequestBody name,
             @Part("subject") RequestBody subject,
             @Part("due_date") RequestBody dueDate,
             @Part("due_time") RequestBody dueTime,
-            @Part MultipartBody.Part file // optional PDF file
+            @Part MultipartBody.Part file
     );
+
+    @FormUrlEncoded
+    @POST("study_planner/update_status.php")
+    Call<UpdateStatusResponse> updateTaskStatus(
+            @Field("user_id") String userId,
+            @Field("task_id") String taskId,
+            @Field("status") String status
+    );
+
+
+
+
+
+
 
 //    @FormUrlEncoded
 //    @POST("study_planner/get_user.php")
