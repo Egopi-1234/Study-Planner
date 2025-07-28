@@ -24,7 +24,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("study_planner/sign_up.php")
     Call<LoginResponse> registerUser(
-            @Field("username") String username,
+            @Field("name") String name,  // ✅ Fix here
             @Field("email") String email,
             @Field("password") String password,
             @Field("confirm_password") String confirmPassword
@@ -68,8 +68,9 @@ public interface ApiService {
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("Dept_info") RequestBody dept,
-            @Part MultipartBody.Part profile_image  // can be null
+            @Part MultipartBody.Part profile_image // ✅ this can be null or empty
     );
+
 
     @Multipart
     @POST("study_planner/Add_tasks.php")
@@ -127,14 +128,27 @@ public interface ApiService {
             @Part MultipartBody.Part file
     );
 
-    @FormUrlEncoded
-    @POST("study_planner/update_status.php")
-    Call<UpdateStatusResponse> updateTaskStatus(
-            @Field("user_id") String userId,
-            @Field("task_id") String taskId,
-            @Field("status") String status
+    @Multipart
+    @POST("study_planner/delete_tasks.php")
+    Call<DeleteTaskResponse> deleteTask(
+            @Part("user_id") RequestBody userId,
+            @Part("task_id") RequestBody taskId
     );
 
+    @FormUrlEncoded
+    @POST("study_planner/delete_material.php")
+    Call<DeleteMaterialResponse> deleteMaterial(
+            @Field("material_id") int materialId,
+            @Field("user_id") int userId
+    );
+
+    @Multipart
+    @POST("study_planner/update_status.php")
+    Call<DeleteTaskResponse> updateTaskStatus(
+            @Part("user_id") RequestBody userId,
+            @Part("task_id") RequestBody taskId,
+            @Part("status") RequestBody status
+    );
 
 
 

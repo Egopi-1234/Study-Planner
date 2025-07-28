@@ -24,11 +24,6 @@ import com.saveetha.studyplanner.api.UpdateProfileResponse;
 import java.io.File;
 import java.io.IOException;
 
-import retrofit2.Call;
-import retrofit2.http.POST;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Field;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -44,7 +39,7 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
-    int userId = 5; // Replace with actual logged-in user ID
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,14 +54,11 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
         btn_save = findViewById(R.id.btn_save);
         btn_cancel = findViewById(R.id.btn_cancel);
 
-        // 📥 Load current user data from server
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
-        int userId = sharedPreferences.getInt("user_id",-1);
+        userId = sharedPreferences.getInt("user_id", -1);
+
         fetchUserProfile(String.valueOf(userId));
-
-        // 📷 Select image from gallery
         profileImage.setOnClickListener(v -> openImageChooser());
-
         btn_save.setOnClickListener(v -> updateProfile());
         btn_cancel.setOnClickListener(v -> finish());
     }
@@ -87,7 +79,7 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
-            profileImage.setImageURI(selectedImageUri); // Preview
+            profileImage.setImageURI(selectedImageUri);
         }
     }
 
@@ -101,23 +93,10 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
             public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().status) {
                     ProfileResponse.UserData user = response.body().data.get(0);
-
-                    if (user.name != null) {
-                        edit_name.setText(user.name);
-                    }
-
-                    if (user.email != null) {
-                        edit_email.setText(user.email);
-                    }
-
-                    if (user.phone != null) {
-                        edit_phone.setText(user.phone);
-                    }
-
-                    if (user.Dept_info != null) {
-                        edit_dept.setText(user.Dept_info);
-                    }
-
+                    edit_name.setText(user.name);
+                    edit_email.setText(user.email);
+                    edit_phone.setText(user.phone);
+                    edit_dept.setText(user.Dept_info);
 
                     String fullImageUrl = "http://localhost/study_planner/" + user.profile_image;
 
@@ -149,14 +128,14 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
         RequestBody phoneBody = RequestBody.create(MediaType.parse("text/plain"), phone);
         RequestBody deptBody = RequestBody.create(MediaType.parse("text/plain"), deptInfo);
 
-        MultipartBody.Part imagePart = null;
+        MultipartBody.Part imagePart;
         if (selectedImageUri != null) {
             File imageFile = new File(getRealPathFromURI(selectedImageUri));
             RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
             imagePart = MultipartBody.Part.createFormData("profile_image", imageFile.getName(), imageBody);
         } else {
-            // Send empty if user didn’t change image
-            imagePart = MultipartBody.Part.createFormData("profile_image", "");
+            RequestBody empty = RequestBody.create(MediaType.parse("text/plain"), "");
+            imagePart = MultipartBody.Part.createFormData("profile_image", "", empty);
         }
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
@@ -171,11 +150,10 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
                 } else {
                     try {
                         String str = response.errorBody().string();
-                        Toast.makeText(EditprofiledetailspageActivity.this, ""+str, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditprofiledetailspageActivity.this, str, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
-                    Toast.makeText(EditprofiledetailspageActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
                 }
             }
 

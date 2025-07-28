@@ -1,11 +1,11 @@
 package com.saveetha.studyplanner;
 
-
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +20,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.saveetha.studyplanner.api.ApiClient;
+import com.saveetha.studyplanner.api.ApiService;
+import com.saveetha.studyplanner.api.DeleteMaterialResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
 
@@ -30,20 +37,24 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
     ImageView backArrow;
 
     String materialName, subject, dueDate, dueTime, filePath;
-    int materialId;
+    int materialId, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewstudymaterialdetails);
 
-        // Intent values
+        // Read user ID from SharedPreferences saved during login
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("user_id", -1);
+
+        // Get material details from Intent extras
         materialId = getIntent().getIntExtra("id", -1);
         materialName = getIntent().getStringExtra("name");
         subject = getIntent().getStringExtra("subject");
         dueDate = getIntent().getStringExtra("due_date");
         dueTime = getIntent().getStringExtra("due_time");
-        filePath = getIntent().getStringExtra("file_path"); // this is a URL
+        filePath = getIntent().getStringExtra("file_path"); // URL string
 
         // Bind views
         materialNameEditText = findViewById(R.id.materialNameEditText);
@@ -56,14 +67,14 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
         deleteTaskLayout = findViewById(R.id.material_delete_task_button);
         backArrow = findViewById(R.id.back_arrow);
 
-        // Set values
+        // Set values in UI fields
         materialNameEditText.setText(materialName);
         subjectEditText.setText(subject);
         dueDateEditText.setText(dueDate);
         dueTimeEditText.setText(dueTime);
         filePathEditText.setText(filePath != null ? filePath.substring(filePath.lastIndexOf("/") + 1) : "");
 
-        // Enable file click
+        // Enable clicking file path to download and open
         filePathEditText.setEnabled(true);
         filePathEditText.setFocusable(false);
         filePathEditText.setOnClickListener(v -> {
@@ -74,10 +85,10 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             }
         });
 
-        // Back button
+        // Back arrow closes activity
         backArrow.setOnClickListener(v -> finish());
 
-        // Edit button
+        // Edit button opens EditStudyMaterialActivity with current data
         editstudybtn.setOnClickListener(v -> {
             Intent intent = new Intent(ViewstudymaterialdetailsActivity.this, EditStudyMaterialActivity.class);
             intent.putExtra("id", materialId);
@@ -89,15 +100,46 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Checkbox logic
+        // Checkbox shows toast on checked change
         taskCompletedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             Toast.makeText(this, isChecked ? "Task marked as completed!" : "Task marked as not completed", Toast.LENGTH_SHORT).show();
         });
 
-        // Delete click
+        // Delete button calls delete API via Retrofit
         deleteTaskLayout.setOnClickListener(v -> {
-            Toast.makeText(this, "Delete task clicked!", Toast.LENGTH_SHORT).show();
-            // TODO: Add delete API call here
+            if (userId == -1) {
+                Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(this, "Deleting material...", Toast.LENGTH_SHORT).show();
+
+            // Create ApiService instance from your existing ApiClient
+            Retrofit retrofit = ApiClient.getClient();
+            ApiService apiService = retrofit.create(ApiService.class);
+
+            Call<DeleteMaterialResponse> call = apiService.deleteMaterial(materialId, userId);
+            call.enqueue(new Callback<DeleteMaterialResponse>() {
+                @Override
+                public void onResponse(Call<DeleteMaterialResponse> call, Response<DeleteMaterialResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        DeleteMaterialResponse deleteResponse = response.body();
+                        if (deleteResponse.isStatus()) {
+                            Toast.makeText(ViewstudymaterialdetailsActivity.this, deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            finish(); // close after delete success
+                        } else {
+                            Toast.makeText(ViewstudymaterialdetailsActivity.this, "Failed: " + deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(ViewstudymaterialdetailsActivity.this, "Response failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DeleteMaterialResponse> call, Throwable t) {
+                    Toast.makeText(ViewstudymaterialdetailsActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 

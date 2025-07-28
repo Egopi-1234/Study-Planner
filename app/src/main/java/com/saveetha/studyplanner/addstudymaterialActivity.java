@@ -25,8 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class addstudymaterialActivity extends AppCompatActivity {
 
-    EditText editTextMaterialName, editTextSubject, editTextDueTime;
-    TextView textViewDueDate;
+    EditText editTextMaterialName, editTextSubject;
+    TextView textViewDueDate,editTextDueTime;
     ImageView backIcon, iconCalendar;
     Button buttonsetreminder;
 

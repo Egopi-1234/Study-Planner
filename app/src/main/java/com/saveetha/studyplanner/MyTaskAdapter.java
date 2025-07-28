@@ -38,7 +38,7 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
         holder.taskPriority.setText("Priority: " + task.getPriority());
         holder.taskStatus.setText("Status: " + task.getStatus());
 
-        // On item click → Open detail activity
+        // On item click → Open Task Details Activity
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, TaskdetailsviewpageActivity.class);
             intent.putExtra("task_name", task.getTask());
@@ -47,7 +47,9 @@ public class MyTaskAdapter extends RecyclerView.Adapter<MyTaskAdapter.TaskViewHo
             intent.putExtra("time", task.getTime());
             intent.putExtra("priority", task.getPriority());
             intent.putExtra("status", task.getStatus());
-            intent.putExtra("id", task.getId()+"");
+            intent.putExtra("id", String.valueOf(task.getId()));
+            // ✅ Convert status to boolean and pass as "completed"
+            intent.putExtra("completed", "Complete".equalsIgnoreCase(task.getStatus()));
             context.startActivity(intent);
         });
     }
