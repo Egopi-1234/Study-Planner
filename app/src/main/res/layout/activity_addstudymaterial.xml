@@ -93,7 +93,6 @@
             android:id="@+id/editTextMaterialName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Unit 1 - Physics Notes"
             android:textColorHint="#7B5E5E"
             android:background="@drawable/edittextbg"
             android:padding="10dp"
@@ -111,7 +110,6 @@
             android:id="@+id/editTextSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="physics"
             android:textColorHint="#7B5E5E"
             android:background="@drawable/edittextbg"
             android:padding="10dp"
@@ -165,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:background="@drawable/edittextbg"
-            android:hint="15:00:00"
+            android:hint="Select Time"
             android:padding="10dp"
             android:textColorHint="#000000" />
 

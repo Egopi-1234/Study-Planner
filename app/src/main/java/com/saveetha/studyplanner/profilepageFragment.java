@@ -2,6 +2,7 @@ package com.saveetha.studyplanner;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,15 +29,13 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class profilepageFragment extends Fragment {
 
     private ImageView conarrow1, conarrow2, conarrow3, conarrow4, profileImageView;
     private TextView editprofile, nameLabel, emailLabel;
     private Button logout_button;
-    int userIdStr;
+    private int userIdStr;
 
     public profilepageFragment() {}
 
@@ -54,56 +53,56 @@ public class profilepageFragment extends Fragment {
         emailLabel = v.findViewById(R.id.email_label);
         profileImageView = v.findViewById(R.id.profile_image);
 
-        if (!isAdded()) return v;
-
-        final var context = requireContext();
-        final var activity = requireActivity();
+        Context context = getContext();
+        if (context == null) return v;
 
         SharedPreferences prefs = context.getSharedPreferences("UserSession", MODE_PRIVATE);
-         userIdStr = prefs.getInt("user_id", -1);
+        userIdStr = prefs.getInt("user_id", -1);
 
         fetchProfile(userIdStr);
 
-        // Arrows and buttons
         conarrow1.setOnClickListener(view ->
-                activity.startActivity(new Intent(context, ChangepasswordpageActivity.class)));
+                startActivitySafe(new Intent(context, ChangepasswordpageActivity.class)));
 
         conarrow2.setOnClickListener(view ->
-                activity.startActivity(new Intent(context, settingspageActivity.class)));
+                startActivitySafe(new Intent(context, settingspageActivity.class)));
 
         conarrow3.setOnClickListener(view ->
-                activity.startActivity(new Intent(context, PrivacypolicyPageActivity.class)));
+                startActivitySafe(new Intent(context, PrivacypolicyPageActivity.class)));
 
         conarrow4.setOnClickListener(view ->
-                activity.startActivity(new Intent(context, TermsandconditionpageActivity.class)));
+                startActivitySafe(new Intent(context, TermsandconditionpageActivity.class)));
 
         editprofile.setOnClickListener(view ->
-                activity.startActivity(new Intent(context, EditprofiledetailspageActivity.class)));
+                startActivitySafe(new Intent(context, EditprofiledetailspageActivity.class)));
 
         logout_button.setOnClickListener(view -> {
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
             editor.apply();
-            activity.startActivity(new Intent(context, LoginPage.class));
-            activity.finish();
+            startActivitySafe(new Intent(context, LoginPage.class));
+            requireActivity().finish();
         });
 
         return v;
     }
 
+    private void startActivitySafe(Intent intent) {
+        if (getActivity() != null && isAdded()) {
+            startActivity(intent);
+        }
+    }
+
     private void fetchProfile(int userIdStr) {
         if (userIdStr != -1) {
             RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userIdStr));
-
-
-
             ApiService apiService = ApiClient.getClient().create(ApiService.class);
             Call<ProfileResponse> call = apiService.viewProfile(userIdBody);
 
             call.enqueue(new Callback<ProfileResponse>() {
                 @Override
                 public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().status) {
+                    if (isAdded() && response.isSuccessful() && response.body() != null && response.body().status) {
                         ProfileResponse.UserData userData = response.body().data.get(0);
 
                         String fullName = userData.name;
@@ -118,17 +117,18 @@ public class profilepageFragment extends Fragment {
                                 .load(imageUrl)
                                 .placeholder(R.drawable.user_profile)
                                 .error(R.drawable.user_profile)
-                                .circleCrop() // <-- This makes the image circular
+                                .circleCrop()
                                 .into(profileImageView);
-
-                    } else {
-                        Toast.makeText(requireContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
+                    } else if (getContext() != null) {
+                        Toast.makeText(getContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                    Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -137,8 +137,6 @@ public class profilepageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         fetchProfile(userIdStr);
-
     }
 }

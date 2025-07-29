@@ -2,6 +2,7 @@ package com.saveetha.studyplanner;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,30 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
     @Override
     public void onBindViewHolder(@NonNull MaterialViewHolder holder, int position) {
         StudyMaterial material = materialList.get(position);
+
         holder.textTitle.setText(material.getName() + " - " + material.getSubject());
         holder.textDateTime.setText(material.getDueDate() + " " + material.getDueTime());
 
-        // Open details screen on click
+        // Set status
+        String status = material.getStatus();
+        holder.textStatus.setText("Status: " + status);
+
+        // Optional: change status color
+        switch (status.toLowerCase()) {
+            case "completed":
+                holder.textStatus.setTextColor(Color.parseColor("#4CAF50")); // Green
+                break;
+            case "pending":
+                holder.textStatus.setTextColor(Color.parseColor("#FF9800")); // Orange
+                break;
+            case "uploaded":
+                holder.textStatus.setTextColor(Color.parseColor("#2196F3")); // Blue
+                break;
+            default:
+                holder.textStatus.setTextColor(Color.GRAY);
+        }
+
+        // Open details screen
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ViewstudymaterialdetailsActivity.class);
             intent.putExtra("id", material.getId());
@@ -45,12 +66,13 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
             intent.putExtra("due_date", material.getDueDate());
             intent.putExtra("due_time", material.getDueTime());
             intent.putExtra("file_path", material.getFilePath());
+            intent.putExtra("status", material.getStatus());
             context.startActivity(intent);
         });
 
-        // TODO: Download logic if needed
+        // Download logic (if needed)
         holder.imgDownload.setOnClickListener(v -> {
-            // Handle download logic
+            // TODO: Implement download logic here
         });
     }
 
@@ -60,13 +82,14 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
     }
 
     public static class MaterialViewHolder extends RecyclerView.ViewHolder {
-        TextView textTitle, textDateTime;
+        TextView textTitle, textDateTime, textStatus;
         ImageView imgDownload;
 
         public MaterialViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textDateTime = itemView.findViewById(R.id.textDateTime);
+            textStatus = itemView.findViewById(R.id.textStatus); // New status field
             imgDownload = itemView.findViewById(R.id.imgDownload);
         }
     }

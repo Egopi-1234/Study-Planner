@@ -43,6 +43,16 @@
                 android:text="DateTime"
                 android:textSize="14sp"
                 android:textColor="#666666" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textColor="#388E3C"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingTop="2dp"/>
         </LinearLayout>
 
         <ImageView
@@ -52,5 +62,6 @@
             android:layout_height="32dp"
             android:src="@drawable/downloadimag"
             android:contentDescription="Download" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

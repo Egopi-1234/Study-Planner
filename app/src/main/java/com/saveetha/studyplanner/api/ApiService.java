@@ -150,7 +150,12 @@ public interface ApiService {
             @Part("status") RequestBody status
     );
 
-
+    @Multipart
+    @POST("study_planner/update_material_status.php")
+    Call<DeleteMaterialResponse> updateMaterialStatus(
+            @Part("materials_id") RequestBody materialId,
+            @Part("status") RequestBody status
+    );
 
 
 

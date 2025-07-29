@@ -11,6 +11,16 @@ public class StudyMaterial {
     private String file_path;
     private String created_at;
 
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     // Getters
     public int getId() { return id; }
     public String getName() { return name; }

@@ -1,6 +1,7 @@
 package com.saveetha.studyplanner;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,8 @@ import com.saveetha.studyplanner.api.ApiClient;
 import com.saveetha.studyplanner.api.ApiService;
 import com.saveetha.studyplanner.api.DeleteMaterialResponse;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,27 +39,28 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
     LinearLayout deleteTaskLayout;
     ImageView backArrow;
 
-    String materialName, subject, dueDate, dueTime, filePath;
+    String materialName, subject, dueDate, dueTime, filePath, status;
     int materialId, userId;
+
+    ProgressDialog progressDialog;
+    DownloadManager downloadManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewstudymaterialdetails);
 
-        // Read user ID from SharedPreferences saved during login
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         userId = sharedPreferences.getInt("user_id", -1);
 
-        // Get material details from Intent extras
         materialId = getIntent().getIntExtra("id", -1);
         materialName = getIntent().getStringExtra("name");
         subject = getIntent().getStringExtra("subject");
         dueDate = getIntent().getStringExtra("due_date");
         dueTime = getIntent().getStringExtra("due_time");
-        filePath = getIntent().getStringExtra("file_path"); // URL string
+        filePath = getIntent().getStringExtra("file_path");
+        status = getIntent().getStringExtra("status");  // Added to prefill checkbox
 
-        // Bind views
         materialNameEditText = findViewById(R.id.materialNameEditText);
         subjectEditText = findViewById(R.id.subjectEditText);
         dueDateEditText = findViewById(R.id.dueDateEditText);
@@ -67,14 +71,12 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
         deleteTaskLayout = findViewById(R.id.material_delete_task_button);
         backArrow = findViewById(R.id.back_arrow);
 
-        // Set values in UI fields
         materialNameEditText.setText(materialName);
         subjectEditText.setText(subject);
         dueDateEditText.setText(dueDate);
         dueTimeEditText.setText(dueTime);
         filePathEditText.setText(filePath != null ? filePath.substring(filePath.lastIndexOf("/") + 1) : "");
 
-        // Enable clicking file path to download and open
         filePathEditText.setEnabled(true);
         filePathEditText.setFocusable(false);
         filePathEditText.setOnClickListener(v -> {
@@ -85,10 +87,8 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             }
         });
 
-        // Back arrow closes activity
         backArrow.setOnClickListener(v -> finish());
 
-        // Edit button opens EditStudyMaterialActivity with current data
         editstudybtn.setOnClickListener(v -> {
             Intent intent = new Intent(ViewstudymaterialdetailsActivity.this, EditStudyMaterialActivity.class);
             intent.putExtra("id", materialId);
@@ -100,12 +100,36 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Checkbox shows toast on checked change
+        // Prefill checkbox based on passed status
+        taskCompletedCheckbox.setChecked("completed".equalsIgnoreCase(status));
+
         taskCompletedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            Toast.makeText(this, isChecked ? "Task marked as completed!" : "Task marked as not completed", Toast.LENGTH_SHORT).show();
+            String newStatus = isChecked ? "completed" : "pending";
+
+            Retrofit retrofit = ApiClient.getClient();
+            ApiService apiService = retrofit.create(ApiService.class);
+
+            RequestBody idPart = RequestBody.create(MultipartBody.FORM, String.valueOf(materialId));
+            RequestBody statusPart = RequestBody.create(MultipartBody.FORM, newStatus);
+
+            Call<DeleteMaterialResponse> call = apiService.updateMaterialStatus(idPart, statusPart);
+            call.enqueue(new Callback<DeleteMaterialResponse>() {
+                @Override
+                public void onResponse(Call<DeleteMaterialResponse> call, Response<DeleteMaterialResponse> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Toast.makeText(ViewstudymaterialdetailsActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ViewstudymaterialdetailsActivity.this, "Failed to update status", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DeleteMaterialResponse> call, Throwable t) {
+                    Toast.makeText(ViewstudymaterialdetailsActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        // Delete button calls delete API via Retrofit
         deleteTaskLayout.setOnClickListener(v -> {
             if (userId == -1) {
                 Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
@@ -113,8 +137,6 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             }
 
             Toast.makeText(this, "Deleting material...", Toast.LENGTH_SHORT).show();
-
-            // Create ApiService instance from your existing ApiClient
             Retrofit retrofit = ApiClient.getClient();
             ApiService apiService = retrofit.create(ApiService.class);
 
@@ -126,7 +148,7 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
                         DeleteMaterialResponse deleteResponse = response.body();
                         if (deleteResponse.isStatus()) {
                             Toast.makeText(ViewstudymaterialdetailsActivity.this, deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish(); // close after delete success
+                            finish();
                         } else {
                             Toast.makeText(ViewstudymaterialdetailsActivity.this, "Failed: " + deleteResponse.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -148,19 +170,66 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             String fileName = url.substring(url.lastIndexOf('/') + 1);
             DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setTitle("Downloading " + fileName);
-            request.setDescription("Downloading material...");
+            request.setDescription("Please wait...");
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, fileName);
 
-            DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-            long downloadId = manager.enqueue(request);
+            downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            long downloadId = downloadManager.enqueue(request);
+
+            // Show Progress Dialog
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setMessage("Downloading...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            new Thread(() -> {
+                boolean downloading = true;
+
+                while (downloading) {
+                    DownloadManager.Query query = new DownloadManager.Query();
+                    query.setFilterById(downloadId);
+                    android.database.Cursor cursor = downloadManager.query(query);
+
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int bytesDownloaded = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                        int bytesTotal = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                        int status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+
+                        if (bytesTotal > 0) {
+                            final int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
+                            runOnUiThread(() -> progressDialog.setProgress(progress));
+                        }
+
+                        if (status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
+                            downloading = false;
+                        }
+
+                        cursor.close();
+                    }
+                }
+
+                runOnUiThread(() -> {
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                });
+
+            }).start();
 
             BroadcastReceiver onComplete = new BroadcastReceiver() {
-                public void onReceive(Context ctxt, Intent intent) {
+                @Override
+                public void onReceive(Context context, Intent intent) {
                     long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-                    if (downloadId == id) {
-                        Uri uri = manager.getUriForDownloadedFile(downloadId);
-                        openDownloadedFile(uri);
+                    if (id == downloadId) {
+                        Uri uri = downloadManager.getUriForDownloadedFile(downloadId);
+                        runOnUiThread(() -> {
+                            if (progressDialog != null && progressDialog.isShowing()) {
+                                progressDialog.dismiss();
+                            }
+                            openDownloadedFile(uri);
+                        });
                         unregisterReceiver(this);
                     }
                 }
@@ -169,6 +238,9 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
             registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
         } catch (Exception e) {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
             Toast.makeText(this, "Download failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
@@ -188,6 +260,10 @@ public class ViewstudymaterialdetailsActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Unable to open file", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+        } finally {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         }
     }
 
