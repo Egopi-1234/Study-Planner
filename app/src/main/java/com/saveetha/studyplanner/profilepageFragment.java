@@ -36,6 +36,7 @@ public class profilepageFragment extends Fragment {
     private ImageView conarrow1, conarrow2, conarrow3, conarrow4, profileImageView;
     private TextView editprofile, nameLabel, emailLabel;
     private Button logout_button;
+    int userIdStr;
 
     public profilepageFragment() {}
 
@@ -59,48 +60,9 @@ public class profilepageFragment extends Fragment {
         final var activity = requireActivity();
 
         SharedPreferences prefs = context.getSharedPreferences("UserSession", MODE_PRIVATE);
-        int userIdStr = prefs.getInt("user_id", -1);
+         userIdStr = prefs.getInt("user_id", -1);
 
-        if (userIdStr != -1) {
-            RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userIdStr));
-
-
-
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
-            Call<ProfileResponse> call = apiService.viewProfile(userIdBody);
-
-            call.enqueue(new Callback<ProfileResponse>() {
-                @Override
-                public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().status) {
-                        ProfileResponse.UserData userData = response.body().data.get(0);
-
-                        String fullName = userData.name;
-                        String email = userData.email;
-                        String profileImage = userData.profile_image;
-                        String imageUrl = ApiClient.getBaseUrl() + profileImage;
-
-                        nameLabel.setText("Name: " + fullName);
-                        emailLabel.setText("Mail ID: " + email);
-
-                        Glide.with(context)
-                                .load(imageUrl)
-                                .placeholder(R.drawable.user_profile)
-                                .error(R.drawable.user_profile)
-                                .circleCrop() // <-- This makes the image circular
-                                .into(profileImageView);
-
-                    } else {
-                        Toast.makeText(context, "Failed to load profile", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ProfileResponse> call, Throwable t) {
-                    Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        fetchProfile(userIdStr);
 
         // Arrows and buttons
         conarrow1.setOnClickListener(view ->
@@ -127,5 +89,56 @@ public class profilepageFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void fetchProfile(int userIdStr) {
+        if (userIdStr != -1) {
+            RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(userIdStr));
+
+
+
+            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            Call<ProfileResponse> call = apiService.viewProfile(userIdBody);
+
+            call.enqueue(new Callback<ProfileResponse>() {
+                @Override
+                public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().status) {
+                        ProfileResponse.UserData userData = response.body().data.get(0);
+
+                        String fullName = userData.name;
+                        String email = userData.email;
+                        String profileImage = userData.profile_image;
+                        String imageUrl = ApiClient.getBaseUrl() + profileImage;
+
+                        nameLabel.setText("Name: " + fullName);
+                        emailLabel.setText("Mail ID: " + email);
+
+                        Glide.with(requireContext())
+                                .load(imageUrl)
+                                .placeholder(R.drawable.user_profile)
+                                .error(R.drawable.user_profile)
+                                .circleCrop() // <-- This makes the image circular
+                                .into(profileImageView);
+
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                    Toast.makeText(requireContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        fetchProfile(userIdStr);
+
     }
 }

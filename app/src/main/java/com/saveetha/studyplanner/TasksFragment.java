@@ -67,7 +67,7 @@ public class TasksFragment extends Fragment {
             } else if (checkedId == R.id.chip_pending) {
                 filterTasksByStatus("Pending");
             } else if (checkedId == R.id.chip_completed) {
-                filterTasksByStatus("Completed");
+                filterTasksByStatus("Complete");
             } else if (checkedId == R.id.chip_priority) {
                 sortTasksByPriority();
             }

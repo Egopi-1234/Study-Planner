@@ -63,7 +63,7 @@ public class AccountdetailspageActivity extends AppCompatActivity {
                     phoneEditText.setText(user.phone);
                     deptEditText.setText(user.Dept_info);
 
-                    String fullImageUrl = "http://localhost/study_planner/" + user.profile_image;
+                    String fullImageUrl = ApiClient.getBaseUrl() + user.profile_image;
 
                     Glide.with(AccountdetailspageActivity.this)
                             .load(fullImageUrl)
