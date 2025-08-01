@@ -3,6 +3,7 @@ package com.saveetha.studyplanner;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.saveetha.studyplanner.api.ApiClient;
 import com.saveetha.studyplanner.api.ApiService;
 import com.saveetha.studyplanner.api.LoginResponse;
@@ -29,11 +31,20 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginpage);
 
-        emailEditText = findViewById(R.id.email_edit);       // Make sure these match your XML
+        emailEditText = findViewById(R.id.email_edit);
         passwordEditText = findViewById(R.id.password_edit);
         loginbtn = findViewById(R.id.loginbtn);
         forgotpassbtn = findViewById(R.id.forgotpassbtn);
         signupbtn = findViewById(R.id.signupbtn);
+
+        // ✅ Auto-login if user already logged in
+        SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        int savedUserId = sharedPreferences.getInt("user_id", -1);
+        if (savedUserId != -1) {
+            startActivity(new Intent(LoginPage.this, WelcomeActivity.class));
+            finish();
+            return;
+        }
 
         loginbtn.setOnClickListener(v -> loginUser());
 
@@ -61,9 +72,9 @@ public class LoginPage extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     if (response.body().isStatus()) {
-                        // Save user ID in SharedPreferences
                         int userId = response.body().getData().getId();
 
+                        // ✅ Save login details in SharedPreferences
                         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("user_id", userId);
@@ -71,9 +82,23 @@ public class LoginPage extends AppCompatActivity {
                         editor.putString("name", response.body().getData().getUsername());
                         editor.apply();
 
-                        Toast.makeText(LoginPage.this, "Welcome " + response.body().getData().getUsername(), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginPage.this, WelcomeActivity.class));
-                        finish();
+                        // ✅ Fetch FCM token and send to server
+                        FirebaseMessaging.getInstance().getToken()
+                                .addOnCompleteListener(task -> {
+                                    if (!task.isSuccessful()) {
+                                        startWelcomeActivity();
+                                        return;
+                                    }
+
+                                    String fcmToken = task.getResult();
+                                    editor.putString("fcm_token", fcmToken);
+                                    editor.apply();
+
+                                    // Send FCM token to server
+                                    updateDeviceTokenOnServer(userId, fcmToken);
+
+                                    startWelcomeActivity();
+                                });
                     } else {
                         Toast.makeText(LoginPage.this, "Login Failed: " + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -88,4 +113,29 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
+
+    private void startWelcomeActivity() {
+        startActivity(new Intent(LoginPage.this, WelcomeActivity.class));
+        finish();
+    }
+
+    private void updateDeviceTokenOnServer(int userId, String token) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.updateDeviceToken(userId, token)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        // Log for debug
+                        Log.d("FCM", "Device token updated, code: " + response.code());
+                        startWelcomeActivity(); // ✅ Move here
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e("FCM", "Failed to update device token: " + t.getMessage());
+                        startWelcomeActivity(); // Move here as fallback
+                    }
+                });
+    }
+
 }

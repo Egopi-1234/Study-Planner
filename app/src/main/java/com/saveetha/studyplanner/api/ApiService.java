@@ -157,6 +157,14 @@ public interface ApiService {
             @Part("status") RequestBody status
     );
 
+    @FormUrlEncoded
+    @POST("study_planner/update_device_token.php")
+    Call<Void> updateDeviceToken(
+            @Field("user_id") int userId,
+            @Field("device_token") String deviceToken
+    );
+
+
 
 
 
