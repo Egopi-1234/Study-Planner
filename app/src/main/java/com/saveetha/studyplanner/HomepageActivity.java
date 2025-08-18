@@ -56,6 +56,7 @@ public class HomepageActivity extends AppCompatActivity {
         // Set selected item explicitly to trigger listener if needed
         bottNav.setSelectedItemId(R.id.home);
     }
+
     public void navigateToIndex(int index) {
         if (bottNav == null) return;
 
