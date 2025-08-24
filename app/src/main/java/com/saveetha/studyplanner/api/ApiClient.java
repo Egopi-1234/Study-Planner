@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "https://dnb1vx0g-80.inc1.devtunnels.ms/"; // for Android Emulator
+    private static final String BASE_URL = "https://dnb1vx0g-80.inc1.devtunnels.ms//"; // for Android Emulator
     static String IMAGE_URL = "https://dnb1vx0g-80.inc1.devtunnels.ms/study_planner/"; // for Android Emulator
     private static Retrofit retrofit;
 

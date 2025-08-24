@@ -59,7 +59,7 @@ public class StudyMaterialAdapter extends RecyclerView.Adapter<StudyMaterialAdap
 
         // Open details screen
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ViewstudymaterialdetailsActivity.class);
+            Intent intent = new Intent(context, ViewStudyMaterialActivity.class);
             intent.putExtra("id", material.getId());
             intent.putExtra("name", material.getName());
             intent.putExtra("subject", material.getSubject());
