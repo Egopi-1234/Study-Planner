@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mcqtestActivity">
+
+    <!-- Top App Bar with Back Arrow -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.Material3.ActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/bacck"
+            style="@style/Widget.Material3.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:navigationIcon="@drawable/back"
+            app:title="Python MCQs"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Questions -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:layout_marginBottom="80dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="?android:attr/dividerHorizontal"
+            android:showDividers="middle">
+
+            <!-- Question 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Which feature makes Python platform-independent?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) It’s compiled"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) It’s interpreted"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) It uses semicolons"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) It has braces"/>
+            </RadioGroup>
+
+            <!-- Question 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Which symbol is used for single-line comments in Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) //"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) &lt;!-- --&gt;"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) #"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) /* */"/>
+            </RadioGroup>
+
+            <!-- Question 3 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. What defines code blocks in Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Braces {}"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) Indentation"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Semicolons"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Parentheses ()"/>
+            </RadioGroup>
+
+            <!-- Question 4 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. How do you create a variable in Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) By declaring its type first"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) By assigning a value"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) By using var keyword"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) By using a declare() function"/>
+            </RadioGroup>
+
+            <!-- Question 5 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5. What is NOT a feature of Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Easy to learn"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) Free and open source"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Requires manual memory management"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Has rich libraries"/>
+            </RadioGroup>
+
+            <!-- Question 6 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6. Which quotes are valid for multi-line comments in Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) &quot;&quot;&quot;"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) '''"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Both A and B"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Neither A nor B"/>
+            </RadioGroup>
+
+            <!-- Question 7 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7. What happens if you skip indentation in Python code?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Nothing, code still runs"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) Python adds spaces automatically"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) It raises an IndentationError"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Code executes partially"/>
+            </RadioGroup>
+
+            <!-- Question 8 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8. What type is assigned to a variable by default in Python?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Integer"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) String"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Depends on the value assigned"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Must be declared explicitly"/>
+            </RadioGroup>
+
+            <!-- Question 9 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9. What is an interpreted language?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Code is converted to bytecode before running"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) Code runs line by line without separate compilation"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Code must be packaged before execution"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Code only runs on Windows"/>
+            </RadioGroup>
+
+            <!-- Question 10 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10. Why is Python considered extensible?"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+            <RadioGroup
+                android:id="@+id/q10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A) Because it can call C/C++ code"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="B) Because it is closed source"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="C) Because it uses semicolons"/>
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="D) Because it is strictly typed"/>
+            </RadioGroup>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Fixed Submit Button at Bottom -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_gravity="bottom"
+        android:layout_margin="40dp"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,92 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <!-- Book Page Image -->
-    <ImageView
-        android:id="@+id/bookImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="Book Image"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/navigationLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/page3" />
-
-    <!-- Page Navigation + Zoom Controls -->
-    <LinearLayout
-        android:id="@+id/navigationLayout"
-        android:layout_width="0dp"
+    <!-- AppBar with Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="?attr/colorSurface">
 
-        <!-- Previous Page Button -->
-        <Button
-            android:id="@+id/prevPageBtn3"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Previous"
-            android:textSize="12sp"
-            android:padding="6dp"/>
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Material3.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="2: Import module in Python"
+            app:titleCentered="true" />
 
-        <!-- Page Indicator -->
-        <TextView
-            android:id="@+id/pageIndicator"
-            android:layout_width="wrap_content"
+        <!-- Module Progress Line (5-step) -->
+        <LinearLayout
+            android:id="@+id/moduleProgress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="3/6"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_margin="16dp"
+            android:clipToPadding="false"
+            android:padding="0dp">
 
-        <!-- Next Page Button -->
-        <Button
-            android:id="@+id/nextPageBtn3"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            <!-- Step 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:textIsSelectable="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#0047FF"/>
+            </LinearLayout>
+
+            <!-- Step 2 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:textIsSelectable="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#E43C3C" />
+            </LinearLayout>
+
+            <!-- Step 3 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:textIsSelectable="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey_300"/>
+            </LinearLayout>
+
+            <!-- Step 4 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:textIsSelectable="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey_300"/>
+            </LinearLayout>
+
+            <!-- Step 5 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:textIsSelectable="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/grey_300"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content Area -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Scrollable Notes -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnNext2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Heading -->
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IMPORT MODULE IN PYTHON"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:paddingBottom="8dp"
+                    android:textIsSelectable="true"/>
+
+                <!-- Definition -->
+                <TextView
+                    android:id="@+id/definition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="A module in Python is a file containing Python definitions, functions, and variables that you can reuse in your programs. Instead of writing everything from scratch, you can import existing modules to save time and organize code better."
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true"/>
+
+                <!-- Why Import -->
+                <TextView
+                    android:id="@+id/whyImport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nWhy do we import modules?"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/reasons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Reuse code written by others\n• Organize large programs into multiple files\n• Use built-in Python libraries (math, random, datetime, os, sys, etc.)\n• Improve readability and maintainability of code"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true"/>
+
+                <!-- Types of Imports -->
+                <TextView
+                    android:id="@+id/typesTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nDifferent ways to import modules:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/types"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Import the entire module\n   import math\n   print(math.sqrt(25))\n\n2. Import specific functions/classes\n   from math import sqrt, pi\n   print(sqrt(36))\n   print(pi)\n\n3. Import with alias\n   import datetime as dt\n   print(dt.date.today())\n\n4. Import all functions (*)\n   from math import *\n   print(factorial(5))"
+                    android:background="#F5F5F5"
+                    android:padding="8dp"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:typeface="monospace"
+                    android:textIsSelectable="true"/>
+
+                <!-- Built-in Modules -->
+                <TextView
+                    android:id="@+id/builtinModulesTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nCommonly used built-in modules:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/builtinModules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• math → mathematical operations\n• random → generate random numbers\n• datetime → work with dates and times\n• os → interact with operating system\n• sys → system-specific functions\n• statistics → mean, median, mode calculations"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true"/>
+
+                <!-- Example Programs -->
+                <TextView
+                    android:id="@+id/examplesTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nExample Program:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/examples"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="import random\nprint('Random number between 1 and 10:', random.randint(1, 10))\n\nimport datetime\nprint('Current date and time:', datetime.datetime.now())"
+                    android:background="#F5F5F5"
+                    android:padding="8dp"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:typeface="monospace"
+                    android:textIsSelectable="true"/>
+
+                <!-- User-defined Modules -->
+                <TextView
+                    android:id="@+id/userDefinedTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nUser-Defined Modules:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/userDefined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You can create your own modules. Save a Python file (mymodule.py) and import it in another program.\n\n# mymodule.py\ndef greet(name): return f'Hello, {name}!'\n# main.py\nimport mymodule\nprint(mymodule.greet('Alice'))"
+                    android:background="#F5F5F5"
+                    android:padding="8dp"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:typeface="monospace"
+                    android:textIsSelectable="true"/>
+
+                <!-- Summary -->
+                <TextView
+                    android:id="@+id/summaryTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\nSummary:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true"/>
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Modules help organize code, reuse functionality, and access built-in features. Python has a rich set of standard modules, and you can write custom ones."
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Bottom Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="Next"
-            android:textSize="12sp"
-            android:padding="6dp"/>
+            android:layout_margin="16dp"
+            app:cornerRadius="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Zoom In Button -->
-        <ImageView
-            android:id="@+id/zoomInBtn"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="Zoom In"
-            android:focusable="true"
-            android:padding="2dp"
-            android:src="@drawable/zoomin" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Zoom Out Button -->
-        <ImageView
-            android:id="@+id/zoomOutBtn"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="Zoom Out"
-            android:focusable="true"
-            android:padding="2dp"
-            android:src="@drawable/zoomout" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

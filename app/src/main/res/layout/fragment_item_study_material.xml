@@ -1,73 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:fillViewport="true">
 
-    <!-- Top Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">  <!-- Changed to vertical -->
+        android:orientation="vertical">
 
+        <!-- Top Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:gravity="center_vertical">
+            android:orientation="vertical">
 
-            <!-- Home Icon -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-            <!-- Title -->
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="62dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Study Materials"
-                android:textColor="#0047FF"
-                android:textSize="30dp"
-                android:textStyle="bold" />
+                <!-- Title -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Study Materials"
+                    android:textColor="#0047FF"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-            <!-- Empty view for layout balance -->
-
+            <!-- Horizontal Line below title -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC" />
         </LinearLayout>
 
-        <!-- Horizontal Line below title -->
-        <View
+        <!-- Add Materials Button -->
+
+        <!-- Static Material Card -->
+        <LinearLayout
+            android:id="@+id/materialPythonCard"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC" />  <!-- Light gray line -->
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/edittextbg"
+            android:elevation="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <!-- Image -->
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/python_banner" />
+
+            <!-- Text Details -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtMaterialTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="python - course"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/txtMaterialStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: Enroll completed"
+                    android:textColor="#008000"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Add Materials Button -->
-    <Button
-        android:id="@+id/btnAddMaterial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#0047FF"
-        android:text="+ Add Materials"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMaterials"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingHorizontal="12dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical" />
-
-</LinearLayout>
+</ScrollView>

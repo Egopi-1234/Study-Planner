@@ -12,7 +12,7 @@
     <item
         android:id="@+id/calendar"
         android:icon="@drawable/calender"
-        android:title="Calendar" />
+        android:title="Search" />
     <item
         android:id="@+id/material"
         android:icon="@drawable/file_manager"

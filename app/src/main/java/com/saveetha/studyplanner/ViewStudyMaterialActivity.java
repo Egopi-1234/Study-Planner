@@ -2,8 +2,7 @@ package com.saveetha.studyplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,58 +10,84 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewStudyMaterialActivity extends AppCompatActivity {
 
-    private ImageView backArrow, bookImageView, zoomInBtn, zoomOutBtn;
-    private EditText filePathEditText;
-    private Button prevPageBtn, nextPageBtn;
-    private TextView pageIndicator;
-
-    private float scale = 1f;         // Initial zoom
-    private final float scaleStep = 0.2f;  // Zoom step
-    private final float maxScale = 3f;     // Maximum zoom
-    private final float minScale = 0.5f;   // Minimum zoom
+    TextView lesson1, lesson2, lesson3, lesson4, lesson5, lesson6;
+    ImageView bkarrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewstudymaterialdetails);
 
-        // Initialize views
-        backArrow = findViewById(R.id.back_arrow);
-        bookImageView = findViewById(R.id.bookImageView);
-        filePathEditText = findViewById(R.id.filePathEditText);
-        prevPageBtn = findViewById(R.id.prevPageBtn);
-        nextPageBtn = findViewById(R.id.nextPageBtn);
-        zoomInBtn = findViewById(R.id.zoomInBtn);
-        zoomOutBtn = findViewById(R.id.zoomOutBtn);
-        pageIndicator = findViewById(R.id.pageIndicator);
+        // Initialize TextViews
+        lesson1 = findViewById(R.id.lesson1);
+        lesson2 = findViewById(R.id.lesson2);
+        lesson3 = findViewById(R.id.lesson3);
+        lesson4 = findViewById(R.id.lesson4);
+        lesson5 = findViewById(R.id.lesson5);
+        lesson6 = findViewById(R.id.lesson6);
 
-        // Back button click -> go back to previous activity
-        backArrow.setOnClickListener(v -> onBackPressed());
+        // Initialize the back arrow ImageView
+        bkarrow = findViewById(R.id.bkarrow);
 
-        // Previous page button
-        prevPageBtn.setOnClickListener(v -> finish());
-
-        // Next page button
-        nextPageBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(ViewStudyMaterialActivity.this, ViewStudyMaterialDetailPage2Activity.class);
-            startActivity(intent);
-        });
-
-        // Zoom In
-        zoomInBtn.setOnClickListener(v -> {
-            if (scale < maxScale) {
-                scale += scaleStep;
-                bookImageView.setScaleX(scale);
-                bookImageView.setScaleY(scale);
+        // Set click listener for back navigation
+        bkarrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Tell HomepageActivity to open the "Study Material" fragment
+                Intent intent = new Intent(ViewStudyMaterialActivity.this, HomepageActivity.class);
+                intent.putExtra("openFragment", "material"); // pass key to HomepageActivity
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish(); // Close current activity so it doesn’t stack
             }
         });
 
-        // Zoom Out
-        zoomOutBtn.setOnClickListener(v -> {
-            if (scale > minScale) {
-                scale -= scaleStep;
-                bookImageView.setScaleX(scale);
-                bookImageView.setScaleY(scale);
+        // Lesson click listeners
+        lesson1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        ViewStudyMaterialDetailPage2Activity.class));
+            }
+        });
+
+        lesson2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        ViewStudyMaterialDetailPage3Activity.class));
+            }
+        });
+
+        lesson3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        viewstudymaterialdetailpage4Activity.class));
+            }
+        });
+
+        lesson4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        viewstudymaterialdetailspage5Activity.class));
+            }
+        });
+
+        lesson5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        viewstudymaterialdetailspage6Activity.class));
+            }
+        });
+
+        lesson6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewStudyMaterialActivity.this,
+                        mcqtestActivity.class));
             }
         });
     }

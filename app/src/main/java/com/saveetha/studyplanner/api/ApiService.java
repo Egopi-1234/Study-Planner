@@ -1,17 +1,24 @@
 package com.saveetha.studyplanner.api;
 
+import com.saveetha.studyplanner.ResultModels;
+
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @FormUrlEncoded
@@ -164,7 +171,29 @@ public interface ApiService {
             @Field("device_token") String deviceToken
     );
 
+    public interface MCQApi {
+        @Headers("Accept: application/json")
+        @POST("study_planner/submit_test.php")
+        Call<SubmitTestResponse> submitTest(@Body SubmitTestRequest request);
+    }
+    // Add this inside ApiService interface
+    @Headers("Content-Type: application/json")
+    @POST("study_planner/view_results.php")
+    Call<ResponseBody> getResult(@Body RequestBody body);
 
+
+    @Headers("Content-Type: application/json")
+    @POST("study_planner/enroll.php")
+    Call<ApiResponse> enroll(@Body CourseRequest request);
+
+    @Headers("Content-Type: application/json")
+    @POST("study_planner/unenroll.php")
+    Call<ApiResponse> unenroll(@Body CourseRequest request);
+
+
+    @Headers("Content-Type: application/json")
+    @POST("study_planner/checkEnrollment.php")
+    Call<ApiResponse> checkEnrollment(@Body CourseRequest request);
 
 
 

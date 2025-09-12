@@ -1,136 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
+    <!-- Top Bar with Back Button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/bkarrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Back"
+            android:src="@drawable/backarrow"/>
+
+        <!-- You can add a title here if needed -->
+    </LinearLayout>
+
+    <!-- Scrollable Lessons -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- Top bar: back arrow, title -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical"
+            android:divider="?android:attr/dividerVertical"
+            android:showDividers="middle">
 
-            <ImageView
-                android:id="@+id/back_arrow"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:contentDescription="Back"
-                android:src="@drawable/backarrow" />
+            <!-- Lesson 1 -->
+            <TextView
+                android:id="@+id/lesson1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:backgroundTintMode="multiply"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="1: Introduction of Python"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Lesson 2 -->
+            <TextView
+                android:id="@+id/lesson2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="2: Import module in Python"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Lesson 3 -->
+            <TextView
+                android:id="@+id/lesson3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="3: Locating Python Modules"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Lesson 4 -->
+            <TextView
+                android:id="@+id/lesson4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="4: Python Built-in modules"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <!-- Lesson 5 -->
+            <TextView
+                android:id="@+id/lesson5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="5: Conclusion of Python"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/lesson6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="View Study Material Details"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Material File Path -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Material Name"
-            android:layout_marginTop="12dp" />
-
-        <EditText
-            android:id="@+id/filePathEditText"
-            android:layout_width="match_parent"
-            android:layout_height="49dp"
-            android:background="@drawable/edittextbg"
-            android:enabled="false"
-            android:inputType="text"
-            android:padding="12dp"
-            android:text="Python.pdf"
-            android:textColor="#7B4B4B" />
-
-        <!-- Book image -->
-        <ImageView
-            android:id="@+id/bookImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:contentDescription="Book Image"
-            android:src="@drawable/page1" />
-
-        <!-- Page navigation with zoom controls (reduced size) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <!-- Previous Page Button -->
-            <Button
-                android:id="@+id/prevPageBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginStart="8dp"
-                android:text="Prev"
-                android:textSize="12sp"
-                android:padding="6dp"/>
-
-            <!-- Page Indicator -->
-            <TextView
-                android:id="@+id/pageIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:text="1/6"
-                android:textSize="12sp" />
-
-            <!-- Next Page Button -->
-            <Button
-                android:id="@+id/nextPageBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginStart="8dp"
-                android:text="Next"
-                android:textSize="12sp"
-                android:padding="6dp"/>
-
-            <!-- Zoom In Icon -->
-            <ImageView
-                android:id="@+id/zoomInBtn"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="Zoom In"
-                android:focusable="true"
-                android:padding="2dp"
-                android:src="@drawable/zoomin" />
-
-            <!-- Zoom Out Icon -->
-            <ImageView
-                android:id="@+id/zoomOutBtn"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="Zoom Out"
-                android:focusable="true"
-                android:padding="2dp"
-                android:src="@drawable/zoomout" />
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittextbg"
+                android:backgroundTint="#E0E0E0"
+                android:elevation="3dp"
+                android:padding="16dp"
+                android:text="Quiz/Test(Optional)"
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

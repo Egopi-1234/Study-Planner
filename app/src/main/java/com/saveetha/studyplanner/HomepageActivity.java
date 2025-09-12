@@ -1,6 +1,7 @@
 package com.saveetha.studyplanner;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -28,9 +29,7 @@ public class HomepageActivity extends AppCompatActivity {
         frameContainer = findViewById(R.id.frameContainer);
         bottNav = findViewById(R.id.bottNav);
 
-        // Set default fragment on startup
-        replaceFragment(new HomeFragment());
-
+        // Handle navigation item selection
         bottNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,10 +52,19 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
-        // Set selected item explicitly to trigger listener if needed
-        bottNav.setSelectedItemId(R.id.home);
+        // If another activity told us to open a specific fragment
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("openFragment")) {
+            String fragmentName = intent.getStringExtra("openFragment");
+            openSpecificFragment(fragmentName);
+        } else {
+            // Default fragment on startup
+            bottNav.setSelectedItemId(R.id.home);
+            replaceFragment(new HomeFragment());
+        }
     }
 
+    // Navigate to a fragment by index (if needed elsewhere)
     public void navigateToIndex(int index) {
         if (bottNav == null) return;
 
@@ -68,10 +76,43 @@ public class HomepageActivity extends AppCompatActivity {
         bottNav.setSelectedItemId(item.getItemId());
     }
 
+    // Replace fragment helper
     public void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frameContainer, fragment)
                 .commit();
+    }
+
+    // Open specific fragment by name from an external intent
+    private void openSpecificFragment(String fragmentName) {
+        if (fragmentName == null) {
+            bottNav.setSelectedItemId(R.id.home);
+            replaceFragment(new HomeFragment());
+            return;
+        }
+
+        switch (fragmentName) {
+            case "material":
+                bottNav.setSelectedItemId(R.id.material);
+                replaceFragment(new ItemStudyMaterialFragment());
+                break;
+            case "task":
+                bottNav.setSelectedItemId(R.id.task);
+                replaceFragment(new TasksFragment());
+                break;
+            case "calendar":
+                bottNav.setSelectedItemId(R.id.calendar);
+                replaceFragment(new CalendartasksFragment());
+                break;
+            case "profile":
+                bottNav.setSelectedItemId(R.id.profile);
+                replaceFragment(new profilepageFragment());
+                break;
+            default:
+                bottNav.setSelectedItemId(R.id.home);
+                replaceFragment(new HomeFragment());
+                break;
+        }
     }
 }

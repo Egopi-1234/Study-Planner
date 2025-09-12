@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
+
+    <!-- Question Text -->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:text="Question"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"/>
+
+    <!-- Options -->
+    <RadioGroup
+        android:id="@+id/radioGroupOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbOptionA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option A"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        <RadioButton
+            android:id="@+id/rbOptionB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option B"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        <RadioButton
+            android:id="@+id/rbOptionC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option C"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        <RadioButton
+            android:id="@+id/rbOptionD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option D"
+            android:clickable="false"
+            android:focusable="false"/>
+
+    </RadioGroup>
+
+    <!-- Correct Answer -->
+    <TextView
+        android:id="@+id/tvCorrectAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Correct Answer: B) Example"
+        android:textColor="#008000"
+        android:textStyle="italic"
+        android:paddingTop="6dp"
+        android:paddingStart="8dp"/>
+
+    <!-- User Selected Answer -->
+    <TextView
+        android:id="@+id/tvSelectedAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Answer: A) Example"
+        android:textColor="#FF0000"
+        android:textStyle="italic"
+        android:paddingTop="2dp"
+        android:paddingStart="8dp"/>
+
+</LinearLayout>

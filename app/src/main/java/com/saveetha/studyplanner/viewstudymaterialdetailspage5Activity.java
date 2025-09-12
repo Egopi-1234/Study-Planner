@@ -2,21 +2,14 @@ package com.saveetha.studyplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.EdgeToEdge;
 
+import com.google.android.material.button.MaterialButton;
+
 public class viewstudymaterialdetailspage5Activity extends AppCompatActivity {
 
-    private Button nextPageBtn5, prevPageBtn5;
-    private ImageView bookImageView, zoomInBtn, zoomOutBtn;
-
-    private float scale = 1f;            // Initial zoom
-    private final float scaleStep = 0.2f;  // Zoom step
-    private final float maxScale = 3f;     // Maximum zoom
-    private final float minScale = 0.5f;   // Minimum zoom
+    MaterialButton btnNext5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,43 +17,13 @@ public class viewstudymaterialdetailspage5Activity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_viewstudymaterialdetailspage5);
 
-        // Initialize views
-        nextPageBtn5 = findViewById(R.id.nextPageBtn5);
-        prevPageBtn5 = findViewById(R.id.prevPageBtn5);
-        bookImageView = findViewById(R.id.bookImageView);
-        zoomInBtn = findViewById(R.id.zoomInBtn);
-        zoomOutBtn = findViewById(R.id.zoomOutBtn);
+        // Initialize the button
+        btnNext5 = findViewById(R.id.btnNext5);
 
-        // Next Page (Page 6)
-        nextPageBtn5.setOnClickListener(v -> {
+        // Set click listener
+        btnNext5.setOnClickListener(view -> {
             Intent intent = new Intent(viewstudymaterialdetailspage5Activity.this, viewstudymaterialdetailspage6Activity.class);
             startActivity(intent);
-            finish();
-        });
-
-        // Previous Page (Page 4)
-        prevPageBtn5.setOnClickListener(v -> {
-            Intent intent = new Intent(viewstudymaterialdetailspage5Activity.this, viewstudymaterialdetailspage4Activity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        // Zoom In
-        zoomInBtn.setOnClickListener(v -> {
-            if (scale < maxScale) {
-                scale += scaleStep;
-                bookImageView.setScaleX(scale);
-                bookImageView.setScaleY(scale);
-            }
-        });
-
-        // Zoom Out
-        zoomOutBtn.setOnClickListener(v -> {
-            if (scale > minScale) {
-                scale -= scaleStep;
-                bookImageView.setScaleX(scale);
-                bookImageView.setScaleY(scale);
-            }
         });
     }
 }

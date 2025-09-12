@@ -26,13 +26,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".coursedetailspageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mcq_resultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mcqtestActivity"
+            android:exported="false" />
+        <activity
             android:name=".viewstudymaterialdetailspage6Activity"
             android:exported="false" />
         <activity
             android:name=".viewstudymaterialdetailspage5Activity"
             android:exported="false" />
         <activity
-            android:name=".viewstudymaterialdetailspage4Activity"
+            android:name=".viewstudymaterialdetailpage4Activity"
             android:exported="false" />
         <activity
             android:name=".ViewStudyMaterialDetailPage3Activity"

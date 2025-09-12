@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Course Banner -->
+        <ImageView
+            android:id="@+id/courseBanner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/python_banner" />
+
+        <!-- Course Title -->
+        <TextView
+            android:id="@+id/courseTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Python Programming for Beginners"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:textIsSelectable="true" />
+
+        <!-- Instructor -->
+        <TextView
+            android:id="@+id/courseInstructor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="By John Doe | Senior Software Engineer"
+            android:textSize="14sp"
+            android:textColor="#666"
+            android:paddingTop="4dp"
+            android:paddingBottom="12dp"
+            android:textIsSelectable="true" />
+
+        <!-- Highlights Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:paddingBottom="12dp">
+
+            <!-- Duration -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Module"
+                    android:textSize="14sp"
+                    android:textColor="#666"
+                    android:textIsSelectable="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total : 6 "
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textIsSelectable="true" />
+            </LinearLayout>
+
+            <!-- Level -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level"
+                    android:textSize="14sp"
+                    android:textColor="#666"
+                    android:textIsSelectable="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beginner"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textIsSelectable="true" />
+            </LinearLayout>
+
+            <!-- Language -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Language"
+                    android:textSize="14sp"
+                    android:textColor="#666"
+                    android:textIsSelectable="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="English"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textIsSelectable="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Description -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Course Description"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:id="@+id/courseDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This comprehensive course takes you from zero programming knowledge to writing your own Python applications. You will explore variables, loops, functions, object-oriented programming, file handling, data structures, and practical projects."
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+        <!-- Prerequisites -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prerequisites"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="- Basic computer knowledge\n- Willingness to learn\n- No prior programming experience required"
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+        <!-- Syllabus -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Syllabus"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Introduction to Python\n2. Variables and Data Types\n3. Control Flow (if, for, while)\n4. Functions and Modules\n5. Object-Oriented Programming\n6. File Handling\n7. Working with Libraries\n8. Mini Projects\n9. Final Capstone Project"
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+        <!-- Learning Outcomes -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Learning Outcomes"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="- Write Python scripts independently\n- Understand and implement OOP concepts\n- Use Python libraries for data and visualization\n- Build practical projects and applications\n- Prepare for further study in AI, ML, and Data Science"
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+        <!-- Instructor Bio -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructor"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="John Doe is a Senior Software Engineer with over 10 years of experience in Python, machine learning, and web development. He has trained 5,000+ students worldwide and worked on several high-profile projects."
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+
+        <!-- Reviews -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Reviews"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textIsSelectable="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⭐ 4.8/5 (1200 Reviews)\n\n'Great for beginners!'\n\n'Easy explanations and practical examples.'\n\n'Hands-on projects helped me learn quickly.'"
+            android:textSize="15sp"
+            android:paddingTop="4dp"
+            android:textIsSelectable="true" />
+
+        <!-- Enroll Button -->
+        <Button
+            android:id="@+id/btnEnroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="#3665AB"
+            android:text="Enroll Now"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

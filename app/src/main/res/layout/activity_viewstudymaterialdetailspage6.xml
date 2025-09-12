@@ -1,93 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <!-- Book Page Image -->
-    <ImageView
-        android:id="@+id/bookImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="Book Image"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/controlRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/page6" />
-
-    <!-- Combined Navigation + Zoom Controls Row -->
-    <LinearLayout
-        android:id="@+id/controlRow"
-        android:layout_width="wrap_content"
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:background="?attr/colorSurface"
+        android:theme="@style/ThemeOverlay.Material3.ActionBar">
 
-        <!-- Previous Button -->
-        <Button
-            android:id="@+id/prevPageBtn6"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:text="Previous"
-            android:textSize="12sp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Material3.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="5: Conclusion of Python"
+            app:titleCentered="true" />
 
-        <!-- Page Indicator -->
-        <TextView
-            android:id="@+id/pageIndicator"
-            android:layout_width="wrap_content"
+        <!-- Module Progress Line -->
+        <LinearLayout
+            android:id="@+id/moduleProgress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="6/6"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_margin="16dp"
+            android:clipToPadding="false"
+            android:padding="0dp">
+
+            <!-- Step 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#0047FF"/>
+            </LinearLayout>
+
+            <!-- Step 2 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#0047FF"/>
+            </LinearLayout>
+
+            <!-- Step 3 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#0047FF"/>
+            </LinearLayout>
+
+            <!-- Step 4 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#0047FF"/>
+            </LinearLayout>
+
+            <!-- Step 5 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#E43C3C" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Content + Bottom Button -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/btnNext6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Heading -->
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PYTHON MODULE 5 NOTES"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.05"
+                    android:paddingBottom="8dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Intro -->
+                <TextView
+                    android:id="@+id/intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Python has proven itself to be one of the most powerful, versatile, and user-friendly programming languages in the world. From beginners writing their first lines of code to professionals building AI systems, Python continues to serve as a foundation for learning, innovation, and problem-solving."
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Key Points -->
+                <TextView
+                    android:id="@+id/keyPointsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n🌟 Why Python Stands Out:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/keyPointsContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Simple and easy-to-learn syntax\n• Large standard library with powerful built-in modules\n• Huge community and ecosystem\n• Cross-platform compatibility\n• Widely used in web development, data science, AI, machine learning, automation, game development, and more"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Advantages -->
+                <TextView
+                    android:id="@+id/advantagesTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n✅ Advantages of Python:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/advantagesContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Beginner-friendly language for new programmers\n• Extensive library support for every domain\n• Great integration with other languages like C, C++, Java\n• Strong community support and documentation\n• High productivity: fewer lines of code, faster results"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Limitations -->
+                <TextView
+                    android:id="@+id/limitationsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n⚠️ Limitations of Python:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/limitationsContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Slower execution compared to C/C++ due to being interpreted\n• Not ideal for mobile app development\n• Higher memory usage\n• Limited in low-level programming"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Career Opportunities -->
+                <TextView
+                    android:id="@+id/careerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n💼 Career Opportunities with Python:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/careerContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Python Developer\n• Data Scientist / Analyst\n• Machine Learning Engineer\n• Web Developer (Django, Flask)\n• Automation Engineer\n• Cybersecurity Specialist\n• AI Researcher\n• Cloud Engineer"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Tips -->
+                <TextView
+                    android:id="@+id/tipsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n📘 Tips for Python Learners:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/tipsContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Practice coding daily to strengthen logic\n• Work on small projects before big ones\n• Explore built-in modules and libraries\n• Contribute to open-source projects\n• Stay updated with the latest Python versions and trends"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Future -->
+                <TextView
+                    android:id="@+id/futureTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n🚀 Future of Python:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textIsSelectable="true" />
+
+                <TextView
+                    android:id="@+id/futureContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Python is not just a trend; it is continuously growing. With its role in AI, robotics, cloud computing, cybersecurity, and automation, Python’s relevance will only expand in the coming years."
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+                <!-- Final Words -->
+                <TextView
+                    android:id="@+id/conclusion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n🌍 Final Thoughts:\nPython is more than just a language—it is a gateway to the world of technology. Whether you want to become a software engineer, data scientist, or researcher, Python provides the essential skills to grow. Keep practicing, keep experimenting, and use Python to bring your ideas to life."
+                    android:textSize="13sp"
+                    android:textStyle="italic"
+                    android:lineSpacingExtra="2dp"
+                    android:textIsSelectable="true" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <!-- Next Button -->
-        <Button
-            android:id="@+id/nextPageBtn6"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext6"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="Next"
-            android:textSize="12sp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"/>
+            android:layout_margin="16dp"
+            app:cornerRadius="28dp"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Zoom In -->
-        <ImageView
-            android:id="@+id/zoomInBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="Zoom In"
-            android:focusable="true"
-            android:padding="4dp"
-            android:src="@drawable/zoomin" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Zoom Out -->
-        <ImageView
-            android:id="@+id/zoomOutBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="Zoom Out"
-            android:focusable="true"
-            android:padding="4dp"
-            android:src="@drawable/zoomout" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
