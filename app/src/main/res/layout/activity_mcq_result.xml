@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/backarrbt9"
+        android:layout_width="40dp"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/backarrow"
+        android:contentDescription="Back" />
+
+    <!-- Score Text -->
+    <TextView
+        android:id="@+id/tvScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 0/0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/backarrbt9"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="16dp" />
+
+    <!-- Retry Button -->
+
+    <!-- RecyclerView -->
+
+    <Button
+        android:id="@+id/btnRetry10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/backarrbt9"
+        android:layout_alignParentEnd="true"
+
+
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="#2196F3"
+        android:minHeight="42dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="Retry"
+        android:textColor="@android:color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvQuestions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/backarrbt9"
+        android:layout_marginTop="47dp" />
+
+</RelativeLayout>
