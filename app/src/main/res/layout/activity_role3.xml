@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Role Heading -->
+        <TextView
+            android:id="@+id/tvRoleHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="8dp"
+            android:text="Role:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Role Title -->
+        <TextView
+            android:id="@+id/tvRoleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI / Machine Learning Engineer"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- What you'll do -->
+        <TextView
+            android:id="@+id/tvWhatYouDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What you’ll do: Design and train AI/ML models for NLP, computer vision, recommendation systems, etc."
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Study Heading -->
+        <TextView
+            android:id="@+id/tvStudyHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Study:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Study List -->
+        <TextView
+            android:id="@+id/tvStudyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• Advanced Python and OOP\n• Machine Learning algorithms (supervised/unsupervised)\n• Deep Learning: TensorFlow, PyTorch, Keras\n• Mathematics: Linear Algebra, Calculus, Probability\n• Data preprocessing, model optimization, evaluation\n• Deploy models (FastAPI, Flask, cloud services)"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Final Note -->
+        <TextView
+            android:id="@+id/tvFinalNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Now get ready to start your Python course!"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="28dp"/>
+
+        <!-- Let’s Go Button -->
+        <Button
+            android:id="@+id/btnLetsGo3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:padding="12dp"
+            android:text="Let’s Go"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+</ScrollView>

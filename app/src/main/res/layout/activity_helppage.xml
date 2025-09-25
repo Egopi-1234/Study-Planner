@@ -74,15 +74,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="email"
-            android:text="support@studyplannerapp.com"
+            android:text="support@Studyplanner"
             android:textColor="#B3A639"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="• 📞 Phone: +91-XXXXXXXXXX"
+            android:text="• 📞 Phone: +91-9361878272"
             android:textSize="16sp" />
 
         <TextView

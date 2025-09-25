@@ -38,12 +38,6 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/notificationbtn"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/notification_bell" />
     </LinearLayout>
 
     <!-- Header Row for Tasks -->

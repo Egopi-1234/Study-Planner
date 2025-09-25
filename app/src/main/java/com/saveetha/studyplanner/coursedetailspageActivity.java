@@ -3,7 +3,6 @@ package com.saveetha.studyplanner;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,9 +10,21 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.saveetha.studyplanner.api.ApiClient;
+import com.saveetha.studyplanner.api.ApiResponse;
+import com.saveetha.studyplanner.api.ApiService;
+import com.saveetha.studyplanner.api.CourseRequest;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class coursedetailspageActivity extends AppCompatActivity {
 
     Button btnEnroll;
+    ApiService apiService;
+    String courseName = "python"; // Replace dynamically if needed
+    String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,80 +33,154 @@ public class coursedetailspageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_coursedetailspage);
 
         btnEnroll = findViewById(R.id.btnEnroll);
+        apiService = ApiClient.getClient().create(ApiService.class);
 
-        updateEnrollButton();
+        // Get logged-in user's email from SharedPreferences
+        userEmail = getSharedPreferences("UserSession", MODE_PRIVATE)
+                .getString("email", "");
 
-        btnEnroll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // 1️⃣ Check enrollment status immediately
+        checkEnrollmentStatus();
 
-                boolean isEnrolled = getSharedPreferences("studyplanner", MODE_PRIVATE)
-                        .getBoolean("isEnrolled", false);
+        btnEnroll.setOnClickListener(v -> {
+            boolean isEnrolled = getSharedPreferences("studyplanner", MODE_PRIVATE)
+                    .getBoolean("isEnrolled", false);
 
-                if (!isEnrolled) {
-                    // Enroll user
-                    getSharedPreferences("studyplanner", MODE_PRIVATE)
-                            .edit()
-                            .putBoolean("isEnrolled", true)
-                            .apply();
+            if (!isEnrolled) {
+                // 2️⃣ Instant UI feedback
+                btnEnroll.setText("Enrolled");
+                btnEnroll.setBackgroundColor(Color.parseColor("#4CAF50")); // Green
+                btnEnroll.setEnabled(false);
 
-                    Toast.makeText(coursedetailspageActivity.this,
-                            "Successfully enrolled in the course!",
-                            Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Successfully enrolled in the course!", Toast.LENGTH_SHORT).show();
 
-                    updateEnrollButton();
+                // 3️⃣ Navigate immediately to Study Material
+                navigateToStudyMaterial();
 
-                    // Navigate to Homepage → Study Material fragment
-                    Intent intent = new Intent(coursedetailspageActivity.this, HomepageActivity.class);
-                    intent.putExtra("openFragment", "material");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
+                // 4️⃣ Store enrollment in backend
+                enrollUser();
 
-                } else {
-                    // Already enrolled → confirm unenroll
-                    new AlertDialog.Builder(coursedetailspageActivity.this)
-                            .setTitle("Unenroll Confirmation")
-                            .setMessage("Are you sure you want to unenroll from this course?")
-                            .setPositiveButton("Yes", (dialog, which) -> {
-                                // Unenroll user
-                                getSharedPreferences("studyplanner", MODE_PRIVATE)
-                                        .edit()
-                                        .putBoolean("isEnrolled", false)
-                                        .apply();
+            } else {
+                // Already enrolled → double-tap to confirm unenroll
+                new AlertDialog.Builder(this)
+                        .setTitle("Unenroll Confirmation")
+                        .setMessage("Are you sure you want to unenroll from this course?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            btnEnroll.setText("Enroll Now");
+                            btnEnroll.setBackgroundColor(Color.parseColor("#3665AB")); // Blue
+                            btnEnroll.setEnabled(false);
 
-                                Toast.makeText(coursedetailspageActivity.this,
-                                        "You have been unenrolled from the course.",
-                                        Toast.LENGTH_SHORT).show();
-
-                                updateEnrollButton();
-
-                                // Navigate to Homepage → Home fragment
-                                Intent intent = new Intent(coursedetailspageActivity.this, HomepageActivity.class);
-                                intent.putExtra("openFragment", "home"); // specify home fragment
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-
-                            })
-                            .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
-                            .show();
-                }
+                            unenrollUser();
+                        })
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
             }
         });
     }
 
-    private void updateEnrollButton() {
-        boolean isEnrolled = getSharedPreferences("studyplanner", MODE_PRIVATE)
-                .getBoolean("isEnrolled", false);
+    // Check backend for enrollment status
+    private void checkEnrollmentStatus() {
+        CourseRequest request = new CourseRequest(courseName, userEmail);
+        apiService.checkEnrollment(request).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    boolean enrolled = response.body().status;
 
-        if (isEnrolled) {
-            btnEnroll.setText("Enrolled");
-            btnEnroll.setBackgroundColor(Color.parseColor("#4CAF50")); // Green
-        } else {
-            btnEnroll.setText("Enroll");
-            btnEnroll.setBackgroundColor(Color.parseColor("#FF6200EE")); // Original color
-        }
+                    // Save locally
+                    getSharedPreferences("studyplanner", MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("isEnrolled", enrolled)
+                            .apply();
+
+                    // Update button UI
+                    if (enrolled) {
+                        btnEnroll.setText("Enrolled");
+                        btnEnroll.setBackgroundColor(Color.parseColor("#4CAF50")); // Green
+                    } else {
+                        btnEnroll.setText("Enroll Now");
+                        btnEnroll.setBackgroundColor(Color.parseColor("#3665AB")); // Blue
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                Toast.makeText(coursedetailspageActivity.this,
+                        "Error checking enrollment: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void enrollUser() {
+        CourseRequest request = new CourseRequest(courseName, userEmail);
+        apiService.enroll(request).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                btnEnroll.setEnabled(true);
+                if (response.isSuccessful() && response.body() != null && response.body().status) {
+                    // Save locally
+                    getSharedPreferences("studyplanner", MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("isEnrolled", true)
+                            .apply();
+                } else {
+                    // Revert button if backend fails
+                    btnEnroll.setText("Enroll Now");
+                    btnEnroll.setBackgroundColor(Color.parseColor("#3665AB"));
+                    Toast.makeText(coursedetailspageActivity.this,
+                            response.body() != null ? response.body().message : "Enrollment failed!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                btnEnroll.setEnabled(true);
+                btnEnroll.setText("Enroll Now");
+                btnEnroll.setBackgroundColor(Color.parseColor("#3665AB"));
+                Toast.makeText(coursedetailspageActivity.this,
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void unenrollUser() {
+        CourseRequest request = new CourseRequest(courseName, userEmail);
+        apiService.unenroll(request).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                btnEnroll.setEnabled(true);
+                if (response.isSuccessful() && response.body() != null && response.body().status) {
+                    getSharedPreferences("studyplanner", MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("isEnrolled", false)
+                            .apply();
+                } else {
+                    btnEnroll.setText("Enrolled");
+                    btnEnroll.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    Toast.makeText(coursedetailspageActivity.this,
+                            response.body() != null ? response.body().message : "Unenroll failed!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                btnEnroll.setEnabled(true);
+                btnEnroll.setText("Enrolled");
+                btnEnroll.setBackgroundColor(Color.parseColor("#4CAF50"));
+                Toast.makeText(coursedetailspageActivity.this,
+                        "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void navigateToStudyMaterial() {
+        Intent intent = new Intent(coursedetailspageActivity.this, HomepageActivity.class);
+        intent.putExtra("openFragment", "material");
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
-

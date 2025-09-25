@@ -8,7 +8,7 @@
     <item
         android:id="@+id/task"
         android:icon="@drawable/task"
-        android:title="Task" />
+        android:title="Career" />
     <item
         android:id="@+id/calendar"
         android:icon="@drawable/calender"

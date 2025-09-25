@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autoLink="email"
-            android:text="Email: support@studyplannerapp.com"
+            android:text="Email:  support@Studyplanner"
             android:textColor="#0000EE" />
 
     </LinearLayout>

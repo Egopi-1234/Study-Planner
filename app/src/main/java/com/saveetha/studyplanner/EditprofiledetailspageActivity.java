@@ -80,6 +80,8 @@ public class EditprofiledetailspageActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             profileImage.setImageURI(selectedImageUri);
+            // Add this line to show Toast
+            Toast.makeText(this, "Image selected successfully", Toast.LENGTH_SHORT).show();
         }
     }
 

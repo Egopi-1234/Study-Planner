@@ -1,92 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_tasks"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@android:color/white">
 
-    <!-- Header -->
+    <!-- Heading -->
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tvHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Tasks"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="16dp"
+        android:text="Ready to level up with Python?"
+        android:textColor="@android:color/black"
         android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Subheading -->
+    <TextView
+        android:id="@+id/tvSubHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap a role below and unlock your personalized learning path (you can always explore a new one)."
+        android:textSize="16sp"
+        android:textColor="#555555"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Roles title -->
+    <TextView
+        android:id="@+id/tvRoles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Roles"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         android:layout_marginBottom="16dp" />
 
-    <!-- HorizontalScrollView wrapping ChipGroup -->
-    <HorizontalScrollView
+    <!-- Role 1 -->
+    <Button
+        android:id="@+id/btnPythonDeveloper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="@android:color/white"
+        android:text="Python Developer (General / Backend)"
+        android:textAllCaps="false" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_filters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleSelection="true">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_all"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All"
-                app:chipBackgroundColor="@color/chip_unselected_color"
-                app:chipStrokeWidth="1dp"
-                app:chipStrokeColor="@color/chip_stroke_color"
-                app:checkedIconVisible="false"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_pending"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pending"
-                app:chipBackgroundColor="@color/chip_unselected_color"
-                app:chipStrokeWidth="1dp"
-                app:chipStrokeColor="@color/chip_stroke_color"
-                app:checkedIconVisible="false"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_completed"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Completed"
-                app:chipBackgroundColor="@color/chip_unselected_color"
-                app:chipStrokeWidth="1dp"
-                app:chipStrokeColor="@color/chip_stroke_color"
-                app:checkedIconVisible="false"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_priority"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Priority"
-                app:chipBackgroundColor="@color/chip_unselected_color"
-                app:chipStrokeWidth="1dp"
-                app:chipStrokeColor="@color/chip_stroke_color"
-                app:checkedIconVisible="false"/>
-
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_tasks"
+    <!-- Role 2 -->
+    <Button
+        android:id="@+id/btnDataAnalyst"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:listitem="@layout/item_task"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="@android:color/white"
+        android:text="Data Analyst / Data Scientist"
+        android:textAllCaps="false" />
+
+    <!-- Role 3 -->
+    <Button
+        android:id="@+id/btnMachineLearning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="@android:color/white"
+        android:text="AI / Machine Learning Engineer"
+        android:textAllCaps="false" />
 
 </LinearLayout>

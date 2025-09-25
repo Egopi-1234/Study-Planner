@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Role Heading -->
+        <TextView
+            android:id="@+id/tvRoleHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="8dp"
+            android:text="Role:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Role Title -->
+        <TextView
+            android:id="@+id/tvRoleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data Analyst / Data Scientist"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- What you'll do -->
+        <TextView
+            android:id="@+id/tvWhatYouDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What you’ll do: Analyze data, create dashboards, build predictive models."
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Study Heading -->
+        <TextView
+            android:id="@+id/tvStudyHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Study:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Study List -->
+        <TextView
+            android:id="@+id/tvStudyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="• Python libraries: NumPy, Pandas, Matplotlib, Seaborn\n• Statistics and Probability\n• SQL for data extraction\n• Machine Learning (scikit-learn, XGBoost, LightGBM)\n• Jupyter Notebook and data visualization tools (Power BI / Tableau)\n• Basics of Big Data (Spark) and data cleaning"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Final Note -->
+        <TextView
+            android:id="@+id/tvFinalNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Now get ready to start your Python course!"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="28dp"/>
+
+        <!-- Let’s Go Button -->
+        <Button
+            android:id="@+id/btnLetsGo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:padding="12dp"
+            android:text="Let’s Go"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

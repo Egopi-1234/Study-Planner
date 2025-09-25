@@ -21,14 +21,25 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_welcome);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         continueBtn = findViewById(R.id.continueBtn);
 
         continueBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, HomepageActivity.class));});
+            // Mark first login as done
+            getSharedPreferences("UserSession", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("first_login", false)
+                    .apply();
+
+            // Go to Homepage
+            startActivity(new Intent(WelcomeActivity.this, HomepageActivity.class));
+            finish();
+        });
     }
 }
