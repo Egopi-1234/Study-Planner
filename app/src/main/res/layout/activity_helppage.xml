@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autoLink="email"
-            android:text="support@Studyplanner"
+            android:text="gopie852@gmail.com"
             android:textColor="#B3A639"
             android:textSize="16sp" />
 

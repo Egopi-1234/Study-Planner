@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.saveetha.studyplanner"
+    namespace = "com.simats.studyplanner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.saveetha.studyplanner"
+        applicationId = "com.simats.studyplanner"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
