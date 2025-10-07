@@ -25,7 +25,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class OpeningPageActivity extends AppCompatActivity {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 100;
-    Button getStarted;
+
+    Button getStarted, subscribeBtn;
+    BillingManager billingManager;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,16 +36,17 @@ public class OpeningPageActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_opening_page);
 
+        // Handle system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // ✅ Request notification permission or show settings dialog
+        // Request notification permission
         requestNotificationPermissionForAllVersions();
 
-        // ✅ Auto-login if user already logged in
+        // Auto-login if user already logged in
         SharedPreferences sharedPreferences = getSharedPreferences("UserSession", MODE_PRIVATE);
         int savedUserId = sharedPreferences.getInt("user_id", -1);
         if (savedUserId != -1) {
@@ -52,22 +55,24 @@ public class OpeningPageActivity extends AppCompatActivity {
             return;
         }
 
-        // ✅ Set up Get Started button
+        // Initialize BillingManager
+        billingManager = new BillingManager(this);
+        billingManager.startConnection();
+
+        // Get Started button
         getStarted = findViewById(R.id.getStarted);
-        getStarted.setOnClickListener(v -> {
-            startActivity(new Intent(this, LoginPage.class));
-        });
+        getStarted.setOnClickListener(v -> startActivity(new Intent(this, LoginPage.class)));
+
+        // Subscribe Monthly button
+        subscribeBtn = findViewById(R.id.subscribeBtn);
+        subscribeBtn.setOnClickListener(v -> billingManager.launchPurchaseFlow());
     }
 
-    /**
-     * Unified notification permission for all Android versions
-     */
+    // Notification permission for all Android versions
     private void requestNotificationPermissionForAllVersions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android 13+ real runtime permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
-
                 ActivityCompat.requestPermissions(
                         this,
                         new String[]{Manifest.permission.POST_NOTIFICATIONS},
@@ -77,7 +82,6 @@ public class OpeningPageActivity extends AppCompatActivity {
                 Toast.makeText(this, "Notification permission already granted", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Android 12 and below → No runtime permission, simulate by checking if enabled
             if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
                 showNotificationSettingsDialog();
             } else {
@@ -86,9 +90,7 @@ public class OpeningPageActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Show a dialog directing the user to enable notifications
-     */
+    // Show settings dialog for notifications
     private void showNotificationSettingsDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Enable Notifications")

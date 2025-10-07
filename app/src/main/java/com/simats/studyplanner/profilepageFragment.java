@@ -45,7 +45,7 @@ public class profilepageFragment extends Fragment {
         conarrow1 = v.findViewById(R.id.conarrow8); // Change Password
         conarrow2 = v.findViewById(R.id.conarrow2); // Settings
         conarrow3 = v.findViewById(R.id.conarrow3); // Privacy Policy
-        conarrow4 = v.findViewById(R.id.conarrow4); // Used for MCQ Result now
+        conarrow4 = v.findViewById(R.id.conarrow4);
         editprofile = v.findViewById(R.id.editprofile);
         logout_button = v.findViewById(R.id.logout_button);
         nameLabel = v.findViewById(R.id.name_label);
@@ -74,12 +74,9 @@ public class profilepageFragment extends Fragment {
         conarrow3.setOnClickListener(view ->
                 startActivitySafe(new Intent(context, PrivacypolicyPageActivity.class)));
 
-        // MCQ Result click (Reusing conarrow4)
-        conarrow4.setOnClickListener(view -> {
-            Intent intent = new Intent(context, mcq_resultActivity.class);
-            intent.putExtra("user_id", userId); // pass user_id explicitly
-            startActivitySafe(intent);
-        });
+        conarrow4.setOnClickListener(view ->
+                startActivitySafe(new Intent(context, TermsandconditionpageActivity.class)));
+
 
         // Edit profile click
         editprofile.setOnClickListener(view ->
@@ -87,12 +84,21 @@ public class profilepageFragment extends Fragment {
 
         // Logout button
         logout_button.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.clear();
-            editor.apply();
-            startActivitySafe(new Intent(context, LoginPage.class));
-            requireActivity().finish();
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Clear session and logout
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.clear();
+                        editor.apply();
+                        startActivitySafe(new Intent(requireContext(), LoginPage.class));
+                        requireActivity().finish();
+                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
+
 
         // Optional: Long press anywhere to launch mcqtestActivity
         v.setOnLongClickListener(view -> {

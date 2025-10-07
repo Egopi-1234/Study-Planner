@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".OpeningPageActivity">
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="150dp"
@@ -16,7 +15,6 @@
         android:layout_marginTop="36dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +28,6 @@
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -39,25 +36,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:layout_marginHorizontal="10dp"
         android:fontFamily="@font/andada_pro"
         android:gravity="center"
-        android:layout_marginHorizontal="10dp"
-        android:text="Welcome ! we will walk you through how to configure the app for the first time"
-        android:textSize="25dp"
+        android:text="Welcome! We will walk you through how to configure the app for the first time."
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <!-- Get Started above Subscribe (Get Started is on top, Subscribe is at the bottom) -->
     <Button
         android:id="@+id/getStarted"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#328DB6"
         android:text="Let’s get started"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/subscribeBtn" />
+
+    <!-- Subscribe Button at bottom -->
+    <Button
+        android:id="@+id/subscribeBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#328DB6"
+        android:text="Subscribe Monthly"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
